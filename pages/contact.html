@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InkXas | Private Tattoo Studio</title>
+  <meta name="description" content="Get in touch with InkXas . Private tattoo studio in Austin, Texas." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img src="../pages/gallery/inkxaslogo.jpg" alt="Lone Star Ink logo" class="logo-img">
+        <span class="brand">Ink <span class="xas">Xas</span>-Tattoos</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <ul class="nav-list" id="navList" aria-hidden="true">
+          <li><a href="../index.html" class="nav-link">Home</a></li>  
+          <li><a href="./gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="./contact.html" class="nav-link">Contact</a></li>
+           <li><a href="./book.html" class="nav-link">Bookings</a></li>
+          <button class="nav-close" id="navClose" aria-label="Close Menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-outline" href="./book.html">Book</a>
+        <button id="navToggle" class="nav-toggle" aria-label="Open Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="contactHero" aria-labelledby="contactHeroTitle">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="./gallery/contactphone.jpg" alt="" class="hero-bg-img">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-inner container">
+      <div class="hero-left">
+        <h1 id="contactHeroTitle" class="hero-title">Get in <span class="herop">Touch</span> with <span class="herop"> InkXas</span> - Tattoos</h1>
+        <p class="hero-sub">Have a tattoo idea? Questions about our artists or bookings? Send us a message and we will respond promptly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="section contact">
+    <div class="container">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-lead">Fill out the form below or use the details to reach us directly.</p>
+
+      <div class="contact-grid">
+        <!-- Contact info -->
+        <div class="contact-card">
+          <h3>InkXas Studio</h3>
+          <p>Austin, TX • Private studio by appointment</p>
+          <p><strong>Hours</strong>: Mon–Sat: 07:00–20:00 (Shifts: 07:00–15:00 & 14:00–20:00)<br>
+                 Sunday: 08:00–14:00<br> 
+                 We offer a flexible schedule to accommodate our clients, as many prefer door-to-door or personalized appointments.
+                 Simply inquire with us, and we will arrange a time that works best for you.
+          </p>
+  
+              <p><strong>Text</strong>:<a href="https://wa.me/19155032586" target="_blank" class="whatsapp-link">+1 (915) 503-2586</a></p>
+              <p><strong>Email</strong>: inkxastatoos@gmail.com</p>
+        </div>
+
+        <!-- Form -->
+        <form id="contactForm" class="contact-form" 
+      action="https://formspree.io/f/mblvzvnj" 
+      method="POST">
+      <input name="name" type="text" placeholder="Name" required />
+      <input name="email" type="email" placeholder="Email" required />
+      <input name="phone" type="text" placeholder="Phone (optional)" />
+      <textarea name="message" placeholder="Describe your idea..." rows="5" required></textarea>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span id="year"></span> InkXas — Private Tattoos Studio</p>
+      </div>
+      <div class="footer-links">
+        <a href="./book.html">Booking</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

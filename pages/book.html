@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking | InkXas Auckland — Private Tattoo Studio</title>
+  <meta name="description" content="Book your tattoo session with InkXas Auckland. Studio sessions, door-to-door service, and custom mega projects. Pay deposit or in full via WhatsApp." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img src="../pages/gallery/inkxaslogo.jpg" alt="InkXas Auckland logo" class="logo-img">
+        <span class="logo-text">Ink<span>Xas</span></span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list" id="navList">
+          <li><a href="../index.html"  class="nav-link">Home</a></li>
+          <li><a href="./gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="./book.html"    class="nav-link active">Booking</a></li>
+          <li><a href="./contact.html" class="nav-link">Contact</a></li>
+          <button class="nav-close" id="navClose" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="./book.html">Book Now</a>
+        <button id="navToggle" class="nav-toggle" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="bookHeroTitle">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="../pages/gallery/inkxashero1.jpg" alt="" class="hero-bg-img">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">InkXas Auckland</p>
+        <h1 id="bookHeroTitle" class="hero-title">Booking &amp; <em>Investment</em></h1>
+        <p class="hero-sub">Transparent pricing with no surprises. Choose your session type, pay a deposit or in full, and we will confirm your appointment via WhatsApp within the hour.</p>
+        <div class="hero-info">
+          <p><strong>Hours:</strong> Monday to Saturday 8:00 am to 8:00 pm &nbsp;|&nbsp; Sunday 9:00 am to 2:00 pm</p>
+          <p>Appointments preferred &bull; Walk-ins welcome when availability allows &bull; Over 20 artists on roster</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION TYPES -->
+  <section class="section" id="sessions">
+    <div class="container">
+      <p class="section-eyebrow">Choose Your Session</p>
+      <h2 class="section-title">Session Types</h2>
+      <p class="section-lead">All sessions include a design consultation and aftercare guidance. Deposits are non-refundable and come off your final price.</p>
+
+      <div class="sessions-grid">
+
+        <!-- Studio -->
+        <div class="session-card">
+          <h3>Studio Session</h3>
+          <div class="session-price">NZD 200</div>
+          <p class="session-price-note">minimum charge</p>
+          <p class="session-desc">Ideal for small to medium tattoos. Our private Parnell studio provides a clean, comfortable, one-on-one environment with premium professional equipment.</p>
+          <ul class="session-features">
+            <li>NZD 150 to 300 per hour typical rate</li>
+            <li>Full privacy — no other clients during your session</li>
+            <li>Design consultation included</li>
+            <li>High-detail and fine work available</li>
+            <li>Aftercare products provided</li>
+          </ul>
+          <div class="session-deposit-box">
+            <strong>Deposit required: NZD 100</strong><br>
+            Non-refundable. Deducted from your final price. Forfeited for no-shows or cancellations with less than 48 hours notice.
+          </div>
+          <div class="session-actions">
+            <button class="btn btn-outline" data-wa-session="Studio Session" data-amount="100" data-pay-type="deposit">
+              <i class="fa-brands fa-whatsapp"></i> Pay NZD 100 Deposit
+            </button>
+            <button class="btn btn-ghost" data-wa-session="Studio Session" data-amount="NZD 200 minimum" data-pay-type="full">
+              Enquire About Full Payment
+            </button>
+          </div>
+        </div>
+
+        <!-- Door to Door -->
+        <div class="session-card featured">
+          <div class="session-popular">Most Popular</div>
+          <h3>Door-to-Door</h3>
+          <div class="session-price">NZD 450</div>
+          <p class="session-price-note">from, travel dependent</p>
+          <p class="session-desc">We bring the full studio experience to you. Our artists travel across the Auckland region with all equipment needed for a professional session in your home or venue.</p>
+          <ul class="session-features">
+            <li>Artist travels to your location</li>
+            <li>All professional equipment provided and set up</li>
+            <li>Ideal for large back pieces and full sleeves</li>
+            <li>Auckland region covered — contact us for outer areas</li>
+            <li>Travel fee included within central Auckland</li>
+          </ul>
+          <div class="session-deposit-box">
+            <strong>Deposit required: NZD 150</strong><br>
+            Non-refundable. Deducted from your final price. Travel fee confirmed at booking.
+          </div>
+          <div class="session-actions">
+            <button class="btn btn-primary" data-wa-session="Door-to-Door" data-amount="150" data-pay-type="deposit">
+              <i class="fa-brands fa-whatsapp"></i> Pay NZD 150 Deposit
+            </button>
+            <button class="btn btn-ghost" data-wa-session="Door-to-Door" data-amount="NZD 450 from" data-pay-type="full">
+              Enquire About Full Payment
+            </button>
+          </div>
+        </div>
+
+        <!-- Mega Project -->
+        <div class="session-card">
+          <h3>Custom Mega Project</h3>
+          <div class="session-price">NZD 650</div>
+          <p class="session-price-note">per session</p>
+          <p class="session-desc">Full back pieces, chest-to-sleeve combinations, large Japanese irezumi works, and long-term custom projects delivered across multiple planned sessions.</p>
+          <ul class="session-features">
+            <li>Priority artist assignment</li>
+            <li>Full project scoped and priced upfront</li>
+            <li>Multiple sessions planned and scheduled</li>
+            <li>Large concept design work included</li>
+            <li>VIP client experience throughout</li>
+          </ul>
+          <div class="session-deposit-box">
+            <strong>Deposit required: NZD 300</strong><br>
+            Non-refundable. Deducted from your first session total. Full project cost quoted before commitment.
+          </div>
+          <div class="session-actions">
+            <button class="btn btn-outline" data-wa-session="Custom Mega Project" data-amount="300" data-pay-type="deposit">
+              <i class="fa-brands fa-whatsapp"></i> Pay NZD 300 Deposit
+            </button>
+            <button class="btn btn-ghost" data-wa-session="Custom Mega Project" data-amount="NZD 650 per session" data-pay-type="full">
+              Enquire About Full Payment
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING GUIDE -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <p class="section-eyebrow">Price Guide</p>
+      <h2 class="section-title">Typical Pricing by Tattoo Size</h2>
+      <p class="section-lead">All prices are in New Zealand dollars and are estimates based on Auckland market rates. Final pricing is confirmed at consultation.</p>
+
+      <div class="pricing-table-wrap">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Tattoo Size</th>
+              <th>Typical Time</th>
+              <th>Estimated Price (NZD)</th>
+              <th>Deposit</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Small</td>
+              <td>1 to 2 hours</td>
+              <td class="price-cell">NZD 200 – 350</td>
+              <td class="deposit-cell">NZD 100</td>
+              <td>Ankle flower, small symbol, script text, geometric</td>
+            </tr>
+            <tr>
+              <td>Medium</td>
+              <td>3 to 4 hours</td>
+              <td class="price-cell">NZD 450 – 700</td>
+              <td class="deposit-cell">NZD 150</td>
+              <td>Butterfly, portrait, calf piece, shoulder piece</td>
+            </tr>
+            <tr>
+              <td>Large</td>
+              <td>5 to 8 hours</td>
+              <td class="price-cell">NZD 800 – 1,700</td>
+              <td class="deposit-cell">NZD 200</td>
+              <td>Lion arm, wolf thigh, full floral back, half sleeve</td>
+            </tr>
+            <tr>
+              <td>Mega / Full Sleeve</td>
+              <td>10 to 15+ hours</td>
+              <td class="price-cell">NZD 2,000 – 4,500+</td>
+              <td class="deposit-cell">NZD 300</td>
+              <td>Full sleeve, full back piece, chest to sleeve</td>
+            </tr>
+            <tr>
+              <td>Door-to-Door Add-on</td>
+              <td>Travel time</td>
+              <td class="price-cell">NZD 100 – 250</td>
+              <td class="deposit-cell">Included in deposit</td>
+              <td>Added on top of tattoo price for home visits</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOSIT POLICY -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <p class="section-eyebrow">Important Information</p>
+      <h2 class="section-title">Deposit and Cancellation Policy</h2>
+      <div class="policy-grid">
+        <div class="policy-card">
+          <h4><i class="fa-solid fa-shield-halved"></i> Deposit Policy</h4>
+          <p>All bookings require a non-refundable deposit of NZD 100 to 300 depending on the session type and piece size. Your deposit is deducted from the final price at the end of your session. Deposits must be received within 48 hours of booking to hold your appointment.</p>
+        </div>
+        <div class="policy-card">
+          <h4><i class="fa-solid fa-calendar-xmark"></i> Cancellations and Rescheduling</h4>
+          <p>We require a minimum of 48 hours notice to reschedule your appointment. Up to two reschedules are permitted with adequate notice. Cancellations with less than 48 hours notice or no-shows will forfeit the deposit. We appreciate your understanding as last-minute changes affect our artists' income.</p>
+        </div>
+        <div class="policy-card">
+          <h4><i class="fa-solid fa-credit-card"></i> Payment Options</h4>
+          <p>We accept payment by bank transfer, cash, and major debit cards. Deposits are paid via bank transfer once confirmed over WhatsApp. Full upfront payment is available for all session types and earns priority scheduling. Payment details are sent once your session is confirmed.</p>
+        </div>
+        <div class="policy-card">
+          <h4><i class="fa-solid fa-message"></i> How to Book</h4>
+          <p>Click any booking button on this page to open WhatsApp with your session details pre-filled. Our team responds within the hour during studio hours. You can also message us directly, browse the gallery and book from a specific tattoo card, or call in to enquire about walk-in availability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span data-year></span> InkXas Auckland &mdash; Private Tattoo Studio, Parnell</p>
+      </div>
+      <div class="footer-links">
+        <a href="./book.html">Booking</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastNotification" class="toast-notification" aria-live="polite"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

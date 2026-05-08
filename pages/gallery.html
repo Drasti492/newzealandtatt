@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery | InkXas Auckland — Custom Tattoo Studio</title>
+  <meta name="description" content="Browse InkXas Auckland's full gallery of 24 custom tattoos. Each piece includes pricing, deposit details, and direct WhatsApp booking." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="logo" href="../index.html">
+        <img src="../pages/gallery/inkxaslogo.jpg" alt="InkXas Auckland logo" class="logo-img">
+        <span class="logo-text">Ink<span>Xas</span></span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list" id="navList">
+          <li><a href="../index.html"   class="nav-link">Home</a></li>
+          <li><a href="./gallery.html"  class="nav-link active">Gallery</a></li>
+          <li><a href="./book.html"     class="nav-link">Booking</a></li>
+          <li><a href="./contact.html"  class="nav-link">Contact</a></li>
+          <button class="nav-close" id="navClose" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="./book.html">Book Now</a>
+        <button id="navToggle" class="nav-toggle" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="galleryHeroTitle">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="../pages/gallery/inkxashero1.jpg" alt="" class="hero-bg-img">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Custom Tattoo Work</p>
+        <h1 id="galleryHeroTitle" class="hero-title">Our <em>Gallery</em></h1>
+        <p class="hero-sub">Browse 24 original custom tattoos from our team. Each piece includes a full price estimate, deposit details, and direct WhatsApp booking.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="#tattooGrid">Browse Tattoos</a>
+          <a class="btn btn-ghost btn-lg"   href="./book.html">Book a Session</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="tattooGrid" class="section gallery">
+    <div class="container">
+      <p class="section-eyebrow">24 Original Pieces</p>
+      <h2 class="section-title">Selected Works</h2>
+
+      <!-- FILTER -->
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all">All Styles</button>
+        <button class="filter-btn" data-filter="colour">Colour Realism</button>
+        <button class="filter-btn" data-filter="blackgrey">Black and Grey</button>
+        <button class="filter-btn" data-filter="fineline">Fine Line</button>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!-- 1 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/angry bird.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Angry Birds Sleeve</h3>
+            <p class="tattoo-meta">Forearm &bull; Approx 5 hours</p>
+            <p class="tattoo-description">A vibrant forearm sleeve featuring characters rendered in hyper-realistic colour. Bold outlines give way to seamlessly blended saturated pigment.</p>
+            <p class="tattoo-meaning">Playful rebellion and the satisfaction of overcoming obstacles — a lighthearted reminder not to take life too seriously.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 850 – 1,100</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="angry-bird">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="angry-bird">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/back flower.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Large Back Floral</h3>
+            <p class="tattoo-meta">Full upper back &bull; Approx 8 hours</p>
+            <p class="tattoo-description">An expansive upper back piece featuring oversized peonies and botanicals in full colour realism. Rich pinks, burgundies, and greens bloom across the skin.</p>
+            <p class="tattoo-meaning">Femininity, prosperity, and the fleeting beauty of nature. The peony is considered a flower of good fortune.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="back-flower">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="back-flower">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/butterfly arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Realistic Butterfly</h3>
+            <p class="tattoo-meta">Inner forearm &bull; Approx 4 hours</p>
+            <p class="tattoo-description">A photorealistic butterfly rendered with extraordinary attention to wing texture, iridescence, and depth. The piece sits naturally on the inner forearm.</p>
+            <p class="tattoo-meaning">Transformation, freedom, and the beauty of change. A deeply personal symbol of growth and becoming.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 650 – 850</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="butterfly-arm">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="butterfly-arm">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="tattoo-card" data-category="blackgrey">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/crying lady arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Black and Grey</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Crying Woman Portrait</h3>
+            <p class="tattoo-meta">Upper arm &bull; Approx 6 hours</p>
+            <p class="tattoo-description">A striking black and grey portrait of a weeping woman rendered with cinematic shading. The emotional intensity is captured through precise tonal work.</p>
+            <p class="tattoo-meaning">Grief, resilience, and the strength it takes to feel deeply. A tribute to emotional honesty and human vulnerability.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="crying-lady">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="crying-lady">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="tattoo-card" data-category="blackgrey">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/god arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Black and Grey</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Greek God — Zeus</h3>
+            <p class="tattoo-meta">Outer arm &bull; Approx 7 hours</p>
+            <p class="tattoo-description">A neo-traditional interpretation of Zeus in bold black and grey with dramatic cloud formations and classical motifs filling the outer arm with authority.</p>
+            <p class="tattoo-meaning">Power, leadership, and the capacity to bring order from chaos. Often chosen to represent strength of character.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="greek-god">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="greek-god">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="tattoo-card" data-category="fineline">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/fonts arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Fine Line</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Rose and Typography Sleeve</h3>
+            <p class="tattoo-meta">Full forearm &bull; Approx 5 hours</p>
+            <p class="tattoo-description">An elegant combination of fine-line roses and ornamental lettering flowing across the forearm. Script and botanicals intertwine in a balanced composition.</p>
+            <p class="tattoo-meaning">The balance between beauty and expression — words carry weight, and the rose reminds us that meaning lies in the detail.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 850 – 1,100</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="rose-typography">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="rose-typography">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/arm zombie.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Horror</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Zombie Apocalypse Sleeve</h3>
+            <p class="tattoo-meta">Half sleeve &bull; Approx 7 hours</p>
+            <p class="tattoo-description">A dramatic half sleeve depicting a post-apocalyptic scene in vivid colour with decaying figures, torn fabric, and atmospheric smoke.</p>
+            <p class="tattoo-meaning">Fascination with mortality and the macabre — a celebration of horror culture and the art of storytelling through tattooing.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="zombie-sleeve">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="zombie-sleeve">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/huge flower.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Giant Peony Statement</h3>
+            <p class="tattoo-meta">Shoulder cap &bull; Approx 6 hours</p>
+            <p class="tattoo-description">An oversized peony in full bloom rendered in layered colour realism, draping across the shoulder cap with exceptional petal detail and light gradients.</p>
+            <p class="tattoo-meaning">Honour, romance, and prosperity. The peony is revered across East Asian cultures as a symbol of beauty and good fortune.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="giant-peony">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="giant-peony">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/leopard hand.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Leopard Hand Tattoo</h3>
+            <p class="tattoo-meta">Full hand &bull; Approx 6 hours</p>
+            <p class="tattoo-description">A full hand piece featuring a leopard face in rich colour realism with spotted patterns extending across the fingers. Hand tattoos are a commitment — this one earns it.</p>
+            <p class="tattoo-meaning">Stealth, independence, and power. The leopard is a symbol of solitude and focused strength.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,000 – 1,350</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="leopard-hand">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="leopard-hand">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="tattoo-card" data-category="fineline">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/line arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Fine Line</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Minimal Geometric Lines</h3>
+            <p class="tattoo-meta">Forearm &bull; Approx 3 hours</p>
+            <p class="tattoo-description">Clean, precise geometric linework flowing across the forearm. Mathematical precision and negative space create a visually striking minimalist statement.</p>
+            <p class="tattoo-meaning">Order, symmetry, and the belief that beauty exists in structure. Often chosen by those who find meaning in clarity and form.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 480 – 650</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="geometric-lines">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="geometric-lines">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="tattoo-card" data-category="blackgrey">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/lion arm.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Black and Grey</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Lion Portrait</h3>
+            <p class="tattoo-meta">Upper arm &bull; Approx 7 hours</p>
+            <p class="tattoo-description">A majestic black and grey lion with extraordinary mane texture, depth of gaze, and tonal range. Commands the upper arm with authority and precision.</p>
+            <p class="tattoo-meaning">Courage, family, and the dignity of leadership. The lion is one of the most universal symbols of strength across cultures.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="lion-arm">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="lion-arm">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/butterfly arm blue.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Blue Morpho Butterfly</h3>
+            <p class="tattoo-meta">Inner arm &bull; Approx 3 hours</p>
+            <p class="tattoo-description">A stunning Blue Morpho butterfly rendered in luminous colour, capturing the iridescent quality of the wings with layered blue and violet pigments.</p>
+            <p class="tattoo-meaning">Rare beauty and the joy found in fleeting moments. The Morpho butterfly symbolises transformation achieved through patience.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 480 – 650</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="blue-butterfly">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="blue-butterfly">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="tattoo-card" data-category="blackgrey">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/owl leg.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Black and Grey</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Wise Owl Calf Piece</h3>
+            <p class="tattoo-meta">Lower leg &bull; Approx 6 hours</p>
+            <p class="tattoo-description">A finely rendered black and grey owl perched with wings slightly spread, occupying the full calf with rich feather detail and a penetrating gaze.</p>
+            <p class="tattoo-meaning">Wisdom, intuition, and the ability to see what others cannot. Owls are revered across Māori and European traditions alike.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="owl-leg">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="owl-leg">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/shoulder red lips.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Pop Art</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Red Lips Sketch</h3>
+            <p class="tattoo-meta">Shoulder &bull; Approx 4 hours</p>
+            <p class="tattoo-description">Bold, graphic red lips rendered in a painterly sketch style with expressive linework and vivid colour. Confident editorial quality with strong visual impact.</p>
+            <p class="tattoo-meaning">Confidence, sensuality, and self-expression. A bold statement about owning your presence without apology.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 650 – 850</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="red-lips">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="red-lips">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/square flower.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Neo-Traditional</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Framed Floral Square</h3>
+            <p class="tattoo-meta">Forearm panel &bull; Approx 5 hours</p>
+            <p class="tattoo-description">A neo-traditional floral composition framed within a clean geometric border. Bold outlines and rich colour fills give the piece a timeless graphic quality.</p>
+            <p class="tattoo-meaning">Growth within boundaries — the idea that beauty flourishes when given structure.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 850 – 1,100</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="framed-floral">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="framed-floral">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="tattoo-card" data-category="blackgrey">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/wolf leg.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Black and Grey</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Howling Wolf Thigh</h3>
+            <p class="tattoo-meta">Upper thigh &bull; Approx 8 hours</p>
+            <p class="tattoo-description">A powerful black and grey wolf howling at a full moon across the upper thigh with deep contrast and meticulous fur texture. One of our most requested large-scale pieces.</p>
+            <p class="tattoo-meaning">Loyalty, instinct, and freedom. The wolf represents the desire to run with your pack whilst remaining true to yourself.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="wolf-thigh">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="wolf-thigh">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/flower backk.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Spine Floral Cascade</h3>
+            <p class="tattoo-meta">Spine to lower back &bull; Approx 8 hours</p>
+            <p class="tattoo-description">A cascading arrangement of flowers flowing down the spine to the lower back in full colour realism. The vertical composition works beautifully with the natural lines of the body.</p>
+            <p class="tattoo-meaning">Strength and beauty united along the backbone — a deeply personal piece about one's own core and resilience.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="spine-floral">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="spine-floral">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/lion arm hd.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Hyper-Realistic Lion HD</h3>
+            <p class="tattoo-meta">Full sleeve &bull; Approx 12 hours</p>
+            <p class="tattoo-description">An extraordinary full sleeve featuring a hyper-realistic lion in full colour. Multiple sessions, layered pigments, and exceptional artist skill produce a result that stops people in the street.</p>
+            <p class="tattoo-meaning">Ultimate strength and presence. A commitment to carrying power and nobility permanently.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 2,000 – 2,800</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 300</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="lion-hd">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="lion-hd">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/ankle smoking cat.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Neo-Traditional</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Smoking Cat Ankle</h3>
+            <p class="tattoo-meta">Ankle wrap &bull; Approx 3 hours</p>
+            <p class="tattoo-description">A cheeky neo-traditional cat with a cigarette, rendered with bold outlines and flat colour fills in classic tattoo flash style. The ankle wrap placement adds a playful energy.</p>
+            <p class="tattoo-meaning">Irreverence, independence, and the refusal to take everything too seriously. A nod to living by your own rules.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 480 – 650</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="smoking-cat">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="smoking-cat">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/monster hand.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Horror</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Monster Claw Hand</h3>
+            <p class="tattoo-meta">Hand and fingers &bull; Approx 6 hours</p>
+            <p class="tattoo-description">A horror-inspired monster claw extending across the hand and fingers with skin-tearing detail and vivid colour. An unapologetically bold statement piece.</p>
+            <p class="tattoo-meaning">Embracing the darker side of imagination — a celebration of horror art and the courage to commit to extreme body art.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 1,000 – 1,350</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="monster-hand">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="monster-hand">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 21 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/arm butterfly discovery.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Butterfly Discovery Sleeve</h3>
+            <p class="tattoo-meta">Half sleeve &bull; Approx 5 hours</p>
+            <p class="tattoo-description">A colour realism half sleeve following the metamorphosis from chrysalis to fully emerged butterfly, morphing across the skin in layered pigments and exceptional colour depth.</p>
+            <p class="tattoo-meaning">Personal transformation and the courage to go through necessary change. A powerful symbol for anyone who has reinvented themselves.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 850 – 1,100</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="butterfly-disc">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="butterfly-disc">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 22 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/rose flower rib.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Colour Realism</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Red Rose Rib Piece</h3>
+            <p class="tattoo-meta">Side ribs &bull; Approx 5 hours</p>
+            <p class="tattoo-description">A rich red rose in full bloom rendered along the ribs in colour realism. The ribcage placement is challenging and rewarding — the piece flows naturally with the body.</p>
+            <p class="tattoo-meaning">Love, passion, and the acceptance of both the beauty and the thorns that life brings.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 850 – 1,100</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="rib-rose">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="rib-rose">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 23 -->
+        <div class="tattoo-card" data-category="fineline">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/flower ankle.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Fine Line</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Delicate Ankle Flower</h3>
+            <p class="tattoo-meta">Ankle &bull; Approx 3 hours</p>
+            <p class="tattoo-description">A refined fine-line floral wrapping delicately around the ankle. The linework is precise and feather-light, achieving an elegance characteristic of Lily Ashford's botanical work.</p>
+            <p class="tattoo-meaning">Grace, new beginnings, and the understanding that the smallest things can carry the most meaning.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 480 – 650</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="ankle-flower">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="ankle-flower">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 24 -->
+        <div class="tattoo-card" data-category="colour">
+          <div class="tattoo-media">
+            <video src="../pages/gallery/arm mixed images.mp4" muted playsinline preload="metadata" loop></video>
+            <span class="tattoo-badge">Mixed Styles</span>
+          </div>
+          <div class="tattoo-info">
+            <h3 class="tattoo-name">Collage Patchwork Sleeve</h3>
+            <p class="tattoo-meta">Full arm &bull; Approx 12 hours</p>
+            <p class="tattoo-description">A full arm sleeve built from individually framed vignettes in mixed styles — realism, neo-traditional, fine line, and blackwork — unified by a cohesive tonal palette.</p>
+            <p class="tattoo-meaning">The richness of a life lived fully, with many chapters. A patchwork sleeve tells the story of who you are through collected imagery.</p>
+            <div class="tattoo-price-row">
+              <span class="tattoo-price-est">NZD 2,000 – 2,800</span>
+              <span class="tattoo-price-sub">estimated</span>
+            </div>
+            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 300</strong></p>
+            <div class="tattoo-actions">
+              <button class="btn btn-outline" data-wa-deposit="patchwork-sleeve">Pay Deposit</button>
+              <button class="btn btn-primary" data-wa-full="patchwork-sleeve">Pay in Full</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span data-year></span> InkXas Auckland &mdash; Private Tattoo Studio, Parnell</p>
+      </div>
+      <div class="footer-links">
+        <a href="./book.html">Booking</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toastNotification" class="toast-notification" aria-live="polite"></div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

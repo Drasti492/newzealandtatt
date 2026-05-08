@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InkXas Auckland | Private Tattoo Studio — Parnell</title>
+  <meta name="description" content="InkXas Auckland — premium private tattoo studio in Parnell. Custom tattoos, door-to-door service across Auckland. Book your session today." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="logo" href="./index.html">
+        <img src="./pages/gallery/inkxaslogo.jpg" alt="InkXas Auckland logo" class="logo-img">
+        <span class="logo-text">Ink<span>Xas</span></span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <ul class="nav-list" id="navList">
+          <li><a href="#home"     class="nav-link">Home</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#artists"  class="nav-link">Artists</a></li>
+          <li><a href="#gallery"  class="nav-link">Gallery</a></li>
+          <li><a href="#booking"  class="nav-link">Booking</a></li>
+          <li><a href="#contact"  class="nav-link">Contact</a></li>
+          <button class="nav-close" id="navClose" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-outline" href="./pages/book.html">Book Now</a>
+        <button id="navToggle" class="nav-toggle" aria-label="Open menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home" aria-labelledby="heroTitle">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="./pages/gallery/tatoo.jpg" alt="" class="hero-bg-img">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-inner container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Parnell, Tāmaki Makaurau Auckland</p>
+        <h1 id="heroTitle" class="hero-title">
+          Art That<br><em>Lasts Forever</em>
+        </h1>
+        <p class="hero-sub">Private studio sessions and door-to-door service across Auckland. Custom art only — no direct copies, no compromises.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary btn-lg" href="./pages/book.html">Book a Session</a>
+          <a class="btn btn-ghost btn-lg"   href="./pages/gallery.html">View Gallery</a>
+        </div>
+        <div class="hero-info">
+          <p><strong>Hours:</strong> Monday to Saturday 8:00 am to 8:00 pm &nbsp;|&nbsp; Sunday 9:00 am to 2:00 pm</p>
+          <p>Appointments preferred &bull; Walk-ins welcome when availability allows</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO BANNER -->
+  <div class="info-banner">
+    <div class="container info-banner-inner">
+      <div class="info-item">
+        <i class="fa-solid fa-location-dot"></i>
+        <span><strong>Parnell</strong>, Auckland</span>
+      </div>
+      <div class="info-divider"></div>
+      <div class="info-item">
+        <i class="fa-solid fa-clock"></i>
+        <span><strong>Mon–Sat</strong> 8:00 am – 8:00 pm &nbsp;&bull;&nbsp; <strong>Sun</strong> 9:00 am – 2:00 pm</span>
+      </div>
+      <div class="info-divider"></div>
+      <div class="info-item">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span><strong>Book via WhatsApp</strong> — response within the hour</span>
+      </div>
+      <div class="info-divider"></div>
+      <div class="info-item">
+        <i class="fa-solid fa-users"></i>
+        <span><strong>20+ artists</strong> on rotating roster</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="section services">
+    <div class="container">
+      <p class="section-eyebrow">What We Offer</p>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-lead">We focus on original art, privacy, and a premium client experience from first enquiry through to final result.</p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-palette"></i></div>
+          <h3>Private Studio Sessions</h3>
+          <p>One-on-one sessions at our Parnell private studio. Ideal for complex, large, or intimate pieces where you need full concentration and comfort.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-car"></i></div>
+          <h3>Door-to-Door</h3>
+          <p>We bring the studio to you. Our artists travel across the Auckland region with full professional equipment. Travel deposit applies.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-pen-nib"></i></div>
+          <h3>Design and Consultation</h3>
+          <p>All designs are fully original. References are welcome — we adapt your ideas into unique, non-infringing compositions tailored to your vision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <p class="section-eyebrow">How It Works</p>
+      <h2 class="section-title">The Process</h2>
+      <div class="process-grid" style="border:1px solid var(--gold-border); border-radius:var(--radius-lg); overflow:hidden;">
+        <div class="process-step">
+          <div class="step-number">01</div>
+          <span class="step-tag">Enquiry</span>
+          <h3>Get in Touch</h3>
+          <p>Message us via WhatsApp or the contact form with your idea, reference images, and preferred placement.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">02</div>
+          <span class="step-tag">Consultation</span>
+          <h3>Design Session</h3>
+          <p>We discuss your vision, develop an original design, and provide a price estimate before anything is confirmed.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">03</div>
+          <span class="step-tag">Deposit</span>
+          <h3>Secure Your Slot</h3>
+          <p>Pay your non-refundable deposit of NZD 100 to 300 to lock in your appointment. This comes off your final price.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">04</div>
+          <span class="step-tag">Session</span>
+          <h3>Get Tattooed</h3>
+          <p>Arrive at the studio or welcome us to your home. We handle everything from setup to aftercare guidance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTISTS -->
+  <section id="artists" class="section artists">
+    <div class="container">
+      <p class="section-eyebrow">The Team</p>
+      <h2 class="section-title">Meet Our Artists</h2>
+      <p class="section-lead">Our roster features over 20 talented artists working in rotation. Here are six of our resident artists — click any profile to learn more about their specialities and availability.</p>
+
+      <div class="artists-grid">
+
+        <article class="artist-card" tabindex="0" data-artist="1">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/johnny rebel.jpg" alt="James Tūhoe" class="artist-photo">
+          </div>
+          <h3>James "Hori" Tūhoe</h3>
+          <p class="artist-specialty">Tā Moko &amp; Polynesian</p>
+          <p class="artist-bio-short">Master of traditional Māori tā moko and contemporary Polynesian tattooing. 14 years of experience.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Tā Moko</span>
+            <span class="artist-tag">Polynesian</span>
+            <span class="artist-tag">Kirituhi</span>
+          </div>
+          <button class="view-artist-btn" data-artist="1">View Profile</button>
+        </article>
+
+        <article class="artist-card" tabindex="0" data-artist="2">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/mia valdez.jpg" alt="Aroha Ngāti" class="artist-photo">
+          </div>
+          <h3>Aroha Ngāti</h3>
+          <p class="artist-specialty">Portraiture &amp; Realism</p>
+          <p class="artist-bio-short">Hyper-realistic portraiture with extraordinary precision. 11 years of experience. Typically booked months ahead.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Portrait</span>
+            <span class="artist-tag">Black &amp; Grey</span>
+            <span class="artist-tag">Colour Realism</span>
+          </div>
+          <button class="view-artist-btn" data-artist="2">View Profile</button>
+        </article>
+
+        <article class="artist-card" tabindex="0" data-artist="3">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/jun leo.jpg" alt="Kenji Murakami" class="artist-photo">
+          </div>
+          <h3>Kenji Murakami</h3>
+          <p class="artist-specialty">Japanese Traditional</p>
+          <p class="artist-bio-short">Trained in Osaka before moving to Auckland. His large-scale irezumi work is considered some of the finest in Aotearoa.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Irezumi</span>
+            <span class="artist-tag">Large Scale</span>
+            <span class="artist-tag">Full Sleeve</span>
+          </div>
+          <button class="view-artist-btn" data-artist="3">View Profile</button>
+        </article>
+
+        <article class="artist-card" tabindex="0" data-artist="4">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/leone carter.jpg" alt="Lily Ashford" class="artist-photo">
+          </div>
+          <h3>Lily Ashford</h3>
+          <p class="artist-specialty">Fine Line &amp; Minimalist</p>
+          <p class="artist-bio-short">Delicate, precise fine-line tattoos with an architectural eye for composition. Every line is intentional.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Fine Line</span>
+            <span class="artist-tag">Geometric</span>
+            <span class="artist-tag">Botanical</span>
+          </div>
+          <button class="view-artist-btn" data-artist="4">View Profile</button>
+        </article>
+
+        <article class="artist-card" tabindex="0" data-artist="5">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/diogo.jpg" alt="Diego Reyes" class="artist-photo">
+          </div>
+          <h3>Diego Reyes</h3>
+          <p class="artist-specialty">Black and Grey &amp; Script</p>
+          <p class="artist-bio-short">Master of black and grey work blending lettering, ornament, and portraiture into cinematic compositions.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Black &amp; Grey</span>
+            <span class="artist-tag">Script</span>
+            <span class="artist-tag">Ornamental</span>
+          </div>
+          <button class="view-artist-btn" data-artist="5">View Profile</button>
+        </article>
+
+        <article class="artist-card" tabindex="0" data-artist="6">
+          <div class="artist-photo-ring">
+            <img src="./pages/gallery/sarah.jpg" alt="Sophie Jamieson" class="artist-photo">
+          </div>
+          <h3>Sophie Jamieson</h3>
+          <p class="artist-specialty">Colour Realism &amp; Floral</p>
+          <p class="artist-bio-short">Vivid botanical colour realism celebrated for painterly luminosity. Waiting list typically three to four months.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">Colour Realism</span>
+            <span class="artist-tag">Floral</span>
+            <span class="artist-tag">Watercolour</span>
+          </div>
+          <button class="view-artist-btn" data-artist="6">View Profile</button>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIST MODAL -->
+  <div id="artistModal" class="modal-overlay" role="dialog" aria-label="Artist profile" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close-btn" aria-label="Close artist profile">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-photo-panel">
+        <img src="" alt="" id="modalPhoto">
+      </div>
+      <div class="modal-body-panel">
+        <h3 id="modalArtistName" class="modal-artist-name">Artist Name</h3>
+        <p  id="modalArtistSpecialty" class="modal-artist-specialty"></p>
+        <p  id="modalArtistBio" class="modal-bio"></p>
+        <div id="modalArtistDetails" class="modal-detail-list"></div>
+        <div class="modal-actions">
+          <a id="modalBookBtn" href="#" class="btn btn-wa" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Book This Artist
+          </a>
+          <button class="btn btn-outline modal-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY PREVIEW -->
+  <section id="gallery" class="section gallery">
+    <div class="container">
+      <p class="section-eyebrow">Selected Works</p>
+      <h2 class="section-title">Gallery</h2>
+      <p class="section-lead">A selection of custom tattoo work from our team. Browse the full collection of 24 pieces in the gallery.</p>
+
+      <div class="gallery-grid">
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/back vulture.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Vulture Back Piece</strong>
+            <span class="muted">Black and grey realism &bull; Upper back &bull; 9 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/chest vulture chess mirror.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Vulture Chess Mirror Chest</strong>
+            <span class="muted">Black and grey surrealism &bull; Full chest &bull; 12 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/ghost holy lady hand.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Ghost Virgin Mary Hand</strong>
+            <span class="muted">Blackwork with white highlights &bull; Full hand &bull; 6 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/tummy waist rose.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Red Rose Waist</strong>
+            <span class="muted">Colour realism &bull; Lower stomach and waist &bull; 6 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/vulture hand.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Vulture Hand Tattoo</strong>
+            <span class="muted">Dark realism &bull; Hand and fingers &bull; 8 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+        <figure class="pro-card">
+          <div class="media-wrapper">
+            <video class="preview-video" src="./pages/gallery/butterfly hip rose butterflyy.mp4" muted playsinline preload="metadata" loop></video>
+          </div>
+          <figcaption>
+            <strong>Rose and Butterfly Hip</strong>
+            <span class="muted">Colour realism &bull; Hip and thigh area &bull; 8 hours</span>
+          </figcaption>
+          <div class="card-actions center-actions">
+            <a href="./pages/book.html" class="book-now-btn">Book Similar</a>
+          </div>
+        </figure>
+
+      </div>
+
+      <div style="text-align:center; margin-top:40px;">
+        <a href="./pages/gallery.html" class="btn btn-outline btn-lg">View All 24 Tattoos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="section" id="booking">
+    <div class="container">
+      <p class="section-eyebrow">Pricing and Booking</p>
+      <h2 class="section-title">Booking and Investment</h2>
+      <p class="section-lead">Transparent pricing. No surprises. All sessions require a non-refundable deposit that is deducted from your final price.</p>
+
+      <div class="rates-grid">
+
+        <div class="rate-card">
+          <h3>Studio Session</h3>
+          <p class="price">NZD 200 <span>minimum</span></p>
+          <p class="rate-desc">Ideal for small to medium tattoos. Clean, private studio environment in Parnell with premium professional equipment.</p>
+          <ul class="rate-features">
+            <li>NZD 150 to 300 per hour typical rate</li>
+            <li>Full privacy studio environment</li>
+            <li>Design consultation included</li>
+            <li>High-detail work available</li>
+          </ul>
+          <div class="rate-deposit">
+            <strong>Deposit:</strong> NZD 100 (exact deposit confirmed per job)
+          </div>
+          <button class="book-btn" data-wa-session="Studio Session" data-amount="100" data-pay-type="deposit">Book Now</button>
+        </div>
+
+        <div class="rate-card featured">
+          <div class="popular">Most Popular</div>
+          <h3>Door-to-Door</h3>
+          <p class="price">NZD 450 <span>travel dependent</span></p>
+          <p class="rate-desc">We bring the studio to you. Perfect for large pieces or ultimate privacy. Travel fee varies by location across Auckland.</p>
+          <ul class="rate-features">
+            <li>Artist travels to your home or venue</li>
+            <li>All professional equipment provided</li>
+            <li>Ideal for back pieces and full arms</li>
+            <li>Auckland region and surrounds covered</li>
+          </ul>
+          <div class="rate-deposit">
+            <strong>Deposit:</strong> NZD 150 (travel dependent)
+          </div>
+          <button class="book-btn" data-wa-session="Door-to-Door" data-amount="150" data-pay-type="deposit">Book Now</button>
+        </div>
+
+        <div class="rate-card">
+          <h3>Custom Mega Pieces</h3>
+          <p class="price">NZD 650 <span>per session</span></p>
+          <p class="rate-desc">Full back pieces, chest-to-sleeve combinations, large Japanese works, and long-term custom projects across multiple sessions.</p>
+          <ul class="rate-features">
+            <li>Priority artist assignment</li>
+            <li>Multiple sessions planned upfront</li>
+            <li>Large concept design included</li>
+            <li>VIP client experience</li>
+          </ul>
+          <div class="rate-deposit">
+            <strong>Deposit:</strong> NZD 300
+          </div>
+          <button class="book-btn" data-wa-session="Custom Mega Project" data-amount="300" data-pay-type="deposit">Book Now</button>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px; text-align:center;">
+        <a href="./pages/book.html" class="btn btn-outline">See Full Pricing Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <p class="section-eyebrow">Client Reviews</p>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">James did my tā moko sleeve and the experience was incredible. He took the time to understand my whakapapa and the design reflects exactly who I am. Could not recommend him more highly.</p>
+          <p class="t-author">Te Koha W.</p>
+          <p class="t-location">Tāmaki Makaurau</p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">The door-to-door service was seamless. Aroha came to my home in Remuera and the whole setup was completely professional. The portrait she did of my mum is beyond anything I imagined.</p>
+          <p class="t-author">Melissa T.</p>
+          <p class="t-location">Remuera, Auckland</p>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="t-text">Kenji is an absolute master. The Japanese back piece took three sessions and every one was worth it. The studio in Parnell is private, clean, and the whole team makes you feel completely at ease.</p>
+          <p class="t-author">Hiroshi M.</p>
+          <p class="t-location">Ponsonby, Auckland</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2 class="section-title">Contact</h2>
+
+      <div class="contact-grid">
+
+        <div class="contact-info-card">
+          <h3>InkXas Auckland</h3>
+          <p class="card-sub">Private studio by appointment &bull; Parnell, Auckland</p>
+
+          <div class="contact-detail-row">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <strong>Studio Location</strong>
+              <span>Parnell, Tāmaki Makaurau Auckland<br>Exact address provided on booking confirmation</span>
+            </div>
+          </div>
+
+          <div class="contact-detail-row">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <strong>Hours</strong>
+              <span>Monday to Saturday: 8:00 am to 8:00 pm<br>Sunday: 9:00 am to 2:00 pm<br>Flexible appointments available on request</span>
+            </div>
+          </div>
+
+          <div class="contact-detail-row">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <a id="contactWaLink" href="#" target="_blank" rel="noopener">Message us on WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="contact-detail-row">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:inkxastatoos@gmail.com">inkxastatoos@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <h3>Send a Message</h3>
+          <p class="card-sub">Describe your idea and we will get back to you promptly.</p>
+          <form id="contactForm" class="contact-form" action="https://formspree.io/f/mblvzvnj" method="POST">
+            <div class="form-row">
+              <input name="name"  type="text"  placeholder="Name"  required />
+              <input name="email" type="email" placeholder="Email" required />
+            </div>
+            <input name="phone" type="text" placeholder="Phone (optional)" />
+            <textarea name="message" placeholder="Describe your tattoo idea, placement, and any reference images you have in mind..." rows="5" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span data-year></span> InkXas Auckland &mdash; Private Tattoo Studio, Parnell</p>
+      </div>
+      <div class="footer-links">
+        <a href="./pages/book.html">Booking</a>
+        <a href="./pages/gallery.html">Gallery</a>
+        <a href="./pages/contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toastNotification" class="toast-notification" aria-live="polite"></div>
+
+  <!-- CHATBOT TRIGGER -->
+  <button class="chatbot-trigger" id="chatbotTrigger" aria-label="Open chat assistant">
+    <i class="fa-solid fa-comment"></i>
+  </button>
+
+  <!-- CHATBOT WINDOW -->
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">I</div>
+      <div class="chat-header-info">
+        <h4>InkXas Assistant</h4>
+        <p>Typically replies instantly</p>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-quick-replies">
+      <button class="quick-reply">Pricing</button>
+      <button class="quick-reply">How to book</button>
+      <button class="quick-reply">Our artists</button>
+      <button class="quick-reply">Studio hours</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything..." />
+      <button class="chat-send" id="chatSend" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
