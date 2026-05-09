@@ -1,14 +1,3 @@
-/* ================================================================
-   InkXas Auckland — main.js
-   Fixes:
-   - Hamburger nav (show/hide with body scroll lock + backdrop)
-   - Video autoplay: hover on desktop, IntersectionObserver on mobile
-   - Covers both .pro-card (index) and .tattoo-card (gallery)
-   - Artist modal with correct IDs matching current HTML
-   - WhatsApp booking buttons (wa-session, wa-deposit, wa-full)
-   - Contact form via Formspree
-   - Chatbot
-   ================================================================ */
 
 const STUDIO = {
   whatsapp: '64212345678',
@@ -29,7 +18,7 @@ const ARTISTS = {
     skills:       ['Tā Moko', 'Polynesian', 'Kirituhi', 'Custom cultural design'],
     availability: 'Monday to Saturday, 8:00 am to 7:00 pm',
     rate:         'From NZD 220 per hour',
-    photo:        './pages/gallery/johnny rebel.jpg',
+    photo:        './pages/gallery/johnny-rebel.jpg',
   },
   2: {
     name:         'Aroha Ngāti',
@@ -38,7 +27,7 @@ const ARTISTS = {
     skills:       ['Portrait', 'Black and grey realism', 'Colour realism'],
     availability: 'Tuesday to Saturday, 9:00 am to 6:00 pm',
     rate:         'From NZD 250 per hour',
-    photo:        './pages/gallery/mia valdez.jpg',
+    photo:        './pages/gallery/mia-valdez.jpg',
   },
   3: {
     name:         'Kenji Murakami',
@@ -47,7 +36,7 @@ const ARTISTS = {
     skills:       ['Irezumi', 'Japanese traditional', 'Large scale', 'Full sleeve'],
     availability: 'Wednesday to Sunday, 10:00 am to 7:00 pm',
     rate:         'From NZD 230 per hour',
-    photo:        './pages/gallery/jun leo.jpg',
+    photo:        './pages/gallery/jun-leo.jpg',
   },
   4: {
     name:         'Lily Ashford',
@@ -56,7 +45,7 @@ const ARTISTS = {
     skills:       ['Fine line', 'Minimalist', 'Geometric', 'Botanical'],
     availability: 'Monday to Friday, 9:00 am to 5:00 pm',
     rate:         'From NZD 200 per hour',
-    photo:        './pages/gallery/leone carter.jpg',
+    photo:        './pages/gallery/leone-carter.jpg',
   },
   5: {
     name:         'Diego Reyes',
