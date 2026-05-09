@@ -1,4 +1,4 @@
 node_modules/
-*.mp4
 *.mov
 *.zip
+-i '/\.mp4/d' .gitignore 2> /dev/null || true.mp4
