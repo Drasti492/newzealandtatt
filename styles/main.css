@@ -1,5 +1,5 @@
 /* ================================================================
-   InkXas — Parnell, Tāmaki Makaurau Auckland, Aotearoa New Zealand
+   InkXas — Parnell, Tāmaki Makaurau Auckland
    Aesthetic: Dark luxury editorial — ink on parchment, gold leaf
    Fonts: Cormorant Garamond (display) + DM Sans (body)
    ================================================================ */
@@ -93,7 +93,7 @@ input, textarea, select { font-family: var(--font-b); }
   max-width: 540px;
   margin-bottom: 48px;
 }
-.section-header        { margin-bottom: 56px; }
+.section-header          { margin-bottom: 56px; }
 .section-header.centered { text-align: center; }
 .section-header.centered .section-lead { margin: 0 auto 48px; }
 
@@ -121,6 +121,7 @@ input, textarea, select { font-family: var(--font-b); }
   align-items: center;
   gap: 13px;
   z-index: 10;
+  position: relative;
 }
 .logo-img {
   width: 44px;
@@ -138,11 +139,14 @@ input, textarea, select { font-family: var(--font-b); }
 }
 .logo-text span { color: var(--gold); }
 
-/* Desktop nav */
+/* ── DESKTOP NAV ──────────────────────────────────────────────── */
 .nav-list {
   display: flex;
   align-items: center;
   gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-link {
@@ -154,19 +158,20 @@ input, textarea, select { font-family: var(--font-b); }
   border-radius: var(--radius-sm);
   transition: color var(--t);
   text-transform: uppercase;
+  display: block;
 }
 .nav-link:hover,
 .nav-link.active { color: var(--white); }
 
-/* Close button hidden on desktop */
+/* Close button — hidden on desktop */
 .nav-close {
   display: none;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 18px;
+  right: 18px;
   width: 36px;
   height: 36px;
-  background: rgba(8,8,8,0.8);
+  background: rgba(8,8,8,0.85);
   border: 1px solid var(--gold-border);
   border-radius: 50%;
   color: var(--white);
@@ -174,12 +179,21 @@ input, textarea, select { font-family: var(--font-b); }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: 1002;
   transition: border-color var(--t), color var(--t);
+  flex-shrink: 0;
 }
 .nav-close:hover { border-color: var(--gold); color: var(--gold); }
 
-.header-actions { display: flex; align-items: center; gap: 12px; }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Hamburger toggle — hidden on desktop */
 .nav-toggle {
   display: none;
   color: var(--white);
@@ -187,6 +201,10 @@ input, textarea, select { font-family: var(--font-b); }
   padding: 6px;
   cursor: pointer;
   z-index: 10;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
 }
 
 /* ==================== BUTTONS ==================== */
@@ -470,7 +488,7 @@ input, textarea, select { font-family: var(--font-b); }
   gap: 16px;
 }
 
-/* Tattoo card — used in gallery page */
+/* ── Tattoo card (gallery page) ───────────────────────────────── */
 .tattoo-card {
   background: var(--bg2); border: 1px solid var(--gold-border);
   border-radius: var(--radius-lg); overflow: hidden;
@@ -478,8 +496,23 @@ input, textarea, select { font-family: var(--font-b); }
   transition: border-color var(--t), transform var(--t);
 }
 .tattoo-card:hover { border-color: rgba(184,151,90,0.45); transform: translateY(-3px); }
-.tattoo-media { position: relative; overflow: hidden; background: var(--bg3); flex-shrink: 0; }
-.tattoo-media video { width: 100%; height: auto; display: block; object-fit: unset; }
+
+/* Video container — responsive aspect ratio */
+.tattoo-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg3);
+  flex-shrink: 0;
+  /* Maintains a consistent 9:16-ish feel for portrait videos */
+  aspect-ratio: 9 / 12;
+}
+.tattoo-media video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 .tattoo-badge {
   position: absolute; top: 10px; left: 10px;
   font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
@@ -506,7 +539,7 @@ input, textarea, select { font-family: var(--font-b); }
 .tattoo-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 12px; }
 .tattoo-actions .btn { font-size: 11px; padding: 10px 8px; }
 
-/* Pro card — used on homepage gallery preview */
+/* ── Pro card (homepage gallery preview) ──────────────────────── */
 .pro-card {
   background: var(--bg2);
   border: 1px solid var(--gold-border);
@@ -517,8 +550,21 @@ input, textarea, select { font-family: var(--font-b); }
   transition: border-color var(--t), transform var(--t);
 }
 .pro-card:hover { border-color: rgba(184,151,90,0.45); transform: translateY(-3px); }
-.media-wrapper { position: relative; overflow: hidden; background: var(--bg3); flex-shrink: 0; }
-.media-wrapper video { width: 100%; height: auto; display: block; object-fit: unset; }
+
+.media-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg3);
+  flex-shrink: 0;
+  aspect-ratio: 9 / 12;   /* consistent portrait ratio for all videos */
+}
+.media-wrapper video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
 .pro-card figcaption {
   padding: 14px 16px 4px;
   display: flex;
@@ -583,7 +629,7 @@ input, textarea, select { font-family: var(--font-b); }
 .session-actions     { display: flex; flex-direction: column; gap: 9px; }
 .session-actions .btn { width: 100%; }
 
-/* Rate cards — simpler booking section variant */
+/* Rate cards */
 .rates-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .rate-card {
   background: var(--bg2); border: 1px solid var(--gold-border);
@@ -621,7 +667,7 @@ input, textarea, select { font-family: var(--font-b); }
   background: var(--gold); color: #0a0a0a;
   font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   border-radius: var(--radius-sm); text-decoration: none;
-  transition: all var(--t);
+  transition: all var(--t); cursor: pointer; border: none; font-family: var(--font-b);
 }
 .book-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
 
@@ -640,8 +686,8 @@ input, textarea, select { font-family: var(--font-b); }
 .policy-card p    { font-size: 13px; color: var(--muted-light); line-height: 1.7; }
 
 /* ==================== PRICING TABLE ==================== */
-.pricing-table-wrap { border: 1px solid var(--gold-border); border-radius: var(--radius-lg); overflow: hidden; }
-.pricing-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.pricing-table-wrap { border: 1px solid var(--gold-border); border-radius: var(--radius-lg); overflow: hidden; overflow-x: auto; }
+.pricing-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
 .pricing-table th {
   text-align: left; padding: 12px 16px;
   font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
@@ -678,8 +724,6 @@ input, textarea, select { font-family: var(--font-b); }
 .contact-form-wrap h3     { font-family: var(--font-d); font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
 .contact-form-wrap .card-sub { font-size: 13px; color: var(--muted-light); margin-bottom: 24px; }
 .form-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-field { display: flex; flex-direction: column; gap: 6px; }
-.form-field label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-light); }
 .contact-form { display: flex; flex-direction: column; gap: 14px; }
 .contact-form input,
 .contact-form textarea,
@@ -694,13 +738,12 @@ input, textarea, select { font-family: var(--font-b); }
 .contact-form input:focus,
 .contact-form textarea:focus,
 .contact-form select:focus { border-color: var(--gold); }
-.contact-form select       { color: var(--muted-light); }
 .contact-form select option { background: var(--bg2); color: var(--text); }
-.contact-form textarea     { resize: vertical; min-height: 130px; }
+.contact-form textarea { resize: vertical; min-height: 130px; }
 .whatsapp-link { color: var(--gold); }
 .whatsapp-link:hover { text-decoration: underline; }
 
-/* Simpler contact card variant (contact.html) */
+/* Contact card variant */
 .contact-card {
   background: var(--bg2); border: 1px solid var(--gold-border);
   border-radius: var(--radius-lg); padding: 34px 28px;
@@ -853,7 +896,11 @@ input, textarea, select { font-family: var(--font-b); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* ================================================================
+   RESPONSIVE BREAKPOINTS
+   ================================================================ */
+
+/* ── 1024px ───────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .services-grid     { grid-template-columns: repeat(2, 1fr); }
   .artists-grid      { grid-template-columns: repeat(2, 1fr); }
@@ -868,98 +915,155 @@ input, textarea, select { font-family: var(--font-b); }
   .modal-box         { grid-template-columns: 260px 1fr; }
 }
 
+/* ── 768px: Mobile nav drawer ─────────────────────────────────── */
 @media (max-width: 768px) {
   .section { padding: 64px 0; }
 
-  /* Mobile nav drawer */
-  .nav-list {
+  /* ── HAMBURGER DRAWER ──────────────────────────────────────── */
+
+  /* Show toggle button */
+  .nav-toggle {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Drawer slides in from the right */
+  .nav-list {
+    /* Position */
     position: fixed;
     top: 0;
     right: -100%;
     width: min(300px, 85vw);
     height: 100dvh;
+    /* Appearance */
     background: var(--bg2);
     border-left: 1px solid var(--gold-border);
-    padding: 80px 24px 40px;
+    /* Layout */
+    display: flex !important;          /* always rendered, just off-screen */
+    flex-direction: column;
+    align-items: stretch;
     gap: 0;
-    z-index: 1000;           /* above header z-index 900 */
+    /* Spacing — push items below the close button */
+    padding: 72px 0 40px;
+    /* Stack above header */
+    z-index: 1001;
     overflow-y: auto;
+    overflow-x: hidden;
+    /* Slide animation */
     transition: right 0.32s var(--ease);
-    /* Ensure the list itself never clips its children */
-    overflow-x: visible;
+    /* Remove any default list styling */
+    list-style: none;
+    margin: 0;
   }
-  .nav-list.open {
+
+  /* Open state — slides into view */
+  .nav-list.show {
     right: 0;
   }
 
-  /* Backdrop behind the open drawer */
+  /* Dim backdrop rendered behind the drawer */
   .nav-list::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.65);
     z-index: -1;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.32s var(--ease);
   }
-  .nav-list.open::before {
+  .nav-list.show::before {
     opacity: 1;
     pointer-events: auto;
   }
 
+  /* Show close button */
   .nav-close {
-    display: flex;    /* show on mobile */
+    display: flex;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 18px;
+    right: 18px;
+    /* Ensure it's above any list items */
+    z-index: 1002;
+  }
+
+  /* Nav links inside the drawer */
+  .nav-list li {
+    width: 100%;
+    border-bottom: 1px solid var(--gold-border);
+  }
+  .nav-list li:last-child {
+    border-bottom: none;
   }
 
   .nav-link {
-    font-size: 15px;
-    padding: 15px 8px;
-    border-bottom: 1px solid var(--gold-border);
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--text);
     display: block;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--text);
+    padding: 16px 24px;
+    transition: color var(--t), background var(--t);
   }
-  .nav-link:last-of-type { border-bottom: none; }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--gold);
+    background: var(--gold-dim);
+  }
 
-  .nav-toggle      { display: flex; align-items: center; justify-content: center; }
-  .header-book     { display: none; }
-  .info-divider    { display: none; }
-  .info-banner-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .artists-grid    { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .gallery-grid    { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sessions-grid   { grid-template-columns: 1fr; }
-  .rates-grid      { grid-template-columns: 1fr; }
-  .services-grid   { grid-template-columns: 1fr; }
-  .process-grid    { grid-template-columns: 1fr; }
-  .process-step    { border-right: none; border-bottom: 1px solid var(--gold-border); }
+  /* Hide Book Now button in header on small screens */
+  .header-actions .btn-outline { display: none; }
+
+  /* ── Sections & grids ────────────────────────────────────────── */
+  .info-divider        { display: none; }
+  .info-banner-inner   { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .artists-grid        { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gallery-grid        { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sessions-grid       { grid-template-columns: 1fr; }
+  .rates-grid          { grid-template-columns: 1fr; }
+  .services-grid       { grid-template-columns: 1fr; }
+  .process-grid        { grid-template-columns: 1fr; }
+  .process-step        { border-right: none; border-bottom: 1px solid var(--gold-border); }
   .process-step:last-child { border-bottom: none; }
-  .policy-grid     { grid-template-columns: 1fr; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .hero-stats      { flex-wrap: wrap; gap: 24px; }
-  .footer-grid     { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .footer-inner    { flex-direction: column; text-align: center; }
-  .footer-links    { flex-wrap: wrap; justify-content: center; }
-  .modal-box       { grid-template-columns: 1fr; max-height: 85vh; }
-  .modal-photo-panel { height: 240px; }
-  .chatbot-window  { width: calc(100vw - 40px); right: 20px; }
-  .form-row        { grid-template-columns: 1fr; }
-  .tattoo-actions  { grid-template-columns: 1fr; }
+  .policy-grid         { grid-template-columns: 1fr; }
+  .testimonials-grid   { grid-template-columns: 1fr; }
+  .hero-stats          { flex-wrap: wrap; gap: 24px; }
+  .footer-grid         { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-inner        { flex-direction: column; text-align: center; }
+  .footer-links        { flex-wrap: wrap; justify-content: center; }
+
+  /* Modal */
+  .modal-overlay       { padding: 12px; }
+  .modal-box           { grid-template-columns: 1fr; max-height: 92vh; }
+  .modal-photo-panel   { height: 220px; }
+  .modal-body-panel    { padding: 22px 18px; }
+
+  /* Chatbot */
+  .chatbot-window      { width: calc(100vw - 40px); right: 20px; }
+
+  /* Form */
+  .form-row            { grid-template-columns: 1fr; }
+  .tattoo-actions      { grid-template-columns: 1fr; }
+
+  /* Contact */
+  .contact-grid        { grid-template-columns: 1fr; }
 }
 
+/* ── 480px ────────────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .artists-grid    { grid-template-columns: 1fr; }
-  .gallery-grid    { grid-template-columns: 1fr; }
-  .footer-grid     { grid-template-columns: 1fr; }
-  .hero-title      { font-size: clamp(42px, 13vw, 60px); }
-  .chatbot-trigger { bottom: 20px; right: 20px; }
-  .chatbot-window  { bottom: 84px; right: 16px; width: calc(100vw - 32px); }
-  .tattoo-price-row { flex-direction: column; align-items: flex-start; }
+  .artists-grid        { grid-template-columns: 1fr; }
+  .gallery-grid        { grid-template-columns: 1fr; }
+  .footer-grid         { grid-template-columns: 1fr; }
+  .hero-title          { font-size: clamp(42px, 13vw, 60px); }
+  .chatbot-trigger     { bottom: 20px; right: 20px; }
+  .chatbot-window      { bottom: 84px; right: 16px; width: calc(100vw - 32px); }
+  .tattoo-price-row    { flex-direction: column; align-items: flex-start; }
+  .modal-actions       { flex-direction: column; }
+
+  /* Slightly smaller video ratio on very small screens */
+  .media-wrapper,
+  .tattoo-media        { aspect-ratio: 3 / 4; }
 }
