@@ -1,6 +1,14 @@
+/* ================================================================
+   InkXas Auckland — main.js  (clean merged version)
+   - Video autoplay covers both .pro-card AND .tattoo-card
+   - Modal IDs match the new Auckland index.html
+   - Chatbot included
+   - WhatsApp booking buttons
+   - Contact form via Formspree
+   ================================================================ */
 
 const STUDIO = {
-  whatsapp: '64212345678',
+  whatsapp: '64212345678',   // ← replace with real number
   name:     'InkXas Auckland',
   suburb:   'Parnell, Auckland',
 };
@@ -14,11 +22,11 @@ const ARTISTS = {
   1: {
     name:         'James "Hori" Tūhoe',
     specialty:    'Tā Moko & Polynesian',
-    bio:          'James is a master of traditional Māori tā moko and contemporary Polynesian tattooing. His deep understanding of whakapapa and cultural narrative ensures every piece carries authentic meaning. With over 14 years of experience, he is one of Auckland\'s most respected cultural tattoo artists.',
+    bio:          "James is a master of traditional Māori tā moko and contemporary Polynesian tattooing. His deep understanding of whakapapa and cultural narrative ensures every piece carries authentic meaning. With over 14 years of experience, he is one of Auckland's most respected cultural tattoo artists.",
     skills:       ['Tā Moko', 'Polynesian', 'Kirituhi', 'Custom cultural design'],
     availability: 'Monday to Saturday, 8:00 am to 7:00 pm',
     rate:         'From NZD 220 per hour',
-    photo:        './pages/gallery/johnny-rebel.jpg',
+    photo:        './pages/gallery/johnny rebel.jpg',   // spaces — matches actual filename
   },
   2: {
     name:         'Aroha Ngāti',
@@ -27,7 +35,7 @@ const ARTISTS = {
     skills:       ['Portrait', 'Black and grey realism', 'Colour realism'],
     availability: 'Tuesday to Saturday, 9:00 am to 6:00 pm',
     rate:         'From NZD 250 per hour',
-    photo:        './pages/gallery/mia-valdez.jpg',
+    photo:        './pages/gallery/mia valdez.jpg',
   },
   3: {
     name:         'Kenji Murakami',
@@ -36,7 +44,7 @@ const ARTISTS = {
     skills:       ['Irezumi', 'Japanese traditional', 'Large scale', 'Full sleeve'],
     availability: 'Wednesday to Sunday, 10:00 am to 7:00 pm',
     rate:         'From NZD 230 per hour',
-    photo:        './pages/gallery/jun-leo.jpg',
+    photo:        './pages/gallery/jun leo.jpg',
   },
   4: {
     name:         'Lily Ashford',
@@ -45,7 +53,7 @@ const ARTISTS = {
     skills:       ['Fine line', 'Minimalist', 'Geometric', 'Botanical'],
     availability: 'Monday to Friday, 9:00 am to 5:00 pm',
     rate:         'From NZD 200 per hour',
-    photo:        './pages/gallery/leone-carter.jpg',
+    photo:        './pages/gallery/leone carter.jpg',
   },
   5: {
     name:         'Diego Reyes',
@@ -67,7 +75,10 @@ const ARTISTS = {
   },
 };
 
-/* Resolve photo path depending on which page we're on */
+/*
+ * When viewed from /pages/gallery.html, photo paths starting with
+ * './pages/gallery/' need to be adjusted to '../pages/gallery/'.
+ */
 function resolvePhoto(path) {
   if (window.location.pathname.indexOf('/pages/') !== -1) {
     return path.replace('./', '../');
@@ -144,24 +155,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if (navToggle) navToggle.addEventListener('click', openNav);
-  if (navClose)  navClose.addEventListener('click', closeNav);
+  if (navClose)  navClose.addEventListener('click',  closeNav);
 
-  /* Close nav when any nav link is clicked */
   document.querySelectorAll('.nav-link').forEach(function (link) {
     link.addEventListener('click', closeNav);
   });
 
-  /* Close nav when clicking the backdrop (outside the drawer) */
   document.addEventListener('click', function (e) {
     if (
-      navList &&
-      navList.classList.contains('show') &&
+      navList && navList.classList.contains('show') &&
       !navList.contains(e.target) &&
-      navToggle && e.target !== navToggle &&
-      !navToggle.contains(e.target)
-    ) {
-      closeNav();
-    }
+      navToggle && e.target !== navToggle && !navToggle.contains(e.target)
+    ) { closeNav(); }
   });
 
   /* ── Artist modal ───────────────────────────────────────────── */
@@ -204,8 +209,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.remove('modal-open');
   }
 
+  /* Both artist-card articles AND view-artist-btn buttons carry data-artist */
   document.querySelectorAll('[data-artist]').forEach(function (el) {
-    el.addEventListener('click', function () { openArtistModal(Number(el.dataset.artist)); });
+    el.addEventListener('click', function (e) {
+      /* Prevent double-fire when button inside card is clicked */
+      e.stopPropagation();
+      openArtistModal(Number(el.dataset.artist));
+    });
     el.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') openArtistModal(Number(el.dataset.artist));
     });
@@ -221,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── Gallery filter ─────────────────────────────────────────── */
+  /* ── Gallery filter (gallery.html only) ─────────────────────── */
   var filterBtns  = document.querySelectorAll('.filter-btn');
   var tattooCards = document.querySelectorAll('.tattoo-card');
 
@@ -236,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ── WhatsApp booking buttons ───────────────────────────────── */
+  /* ── WhatsApp booking: deposit buttons ──────────────────────── */
   document.querySelectorAll('[data-wa-deposit]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -256,6 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ── WhatsApp booking: pay in full buttons ───────────────────── */
   document.querySelectorAll('[data-wa-full]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -274,6 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ── WhatsApp booking: session type buttons ──────────────────── */
   document.querySelectorAll('[data-wa-session]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -291,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ── WhatsApp booking: general enquiry buttons ───────────────── */
   document.querySelectorAll('[data-wa-general]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
@@ -303,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ── Toast ──────────────────────────────────────────────────── */
-  var toast = document.getElementById('toastNotification');
+  /* ── Toast notification ─────────────────────────────────────── */
+  var toast = document.getElementById('toastNotification') || document.getElementById('toast');
 
   function showToast(msg, duration) {
     if (!toast) return;
@@ -314,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () { toast.classList.remove('show'); }, duration);
   }
 
-  /* ── Contact form ───────────────────────────────────────────── */
+  /* ── Contact form (Formspree) ────────────────────────────────── */
   var contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
@@ -343,14 +356,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── Footer year ────────────────────────────────────────────── */
+  /* ── Footer year ─────────────────────────────────────────────── */
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ── Chatbot ────────────────────────────────────────────────── */
+  /* ── Chatbot ─────────────────────────────────────────────────── */
   var chatTrigger  = document.getElementById('chatbotTrigger');
   var chatWindow   = document.getElementById('chatbotWindow');
   var chatCloseBtn = document.getElementById('chatClose');
@@ -358,102 +371,122 @@ document.addEventListener('DOMContentLoaded', function () {
   var chatInputEl  = document.getElementById('chatInput');
   var chatSendBtn  = document.getElementById('chatSend');
 
-  var BOT = {
-    greeting: 'Kia ora! Welcome to ' + STUDIO.name + ' in ' + STUDIO.suburb + '.\n\nI can help with pricing, bookings, our artists, or anything else about the studio. What would you like to know?',
-    pricing:  'Our pricing guide in New Zealand dollars:\n\nSmall tattoos (1–2 hrs): NZD 200–350\nMedium tattoos (3–4 hrs): NZD 450–700\nLarge tattoos (5–8 hrs): NZD 800–1,700\nFull sleeves or mega pieces: NZD 2,000–4,500+\n\nAll sessions require a non-refundable deposit of NZD 100–300, which comes off your final price.',
-    booking:  'To book a session at InkXas:\n\n1. Browse our Gallery and select a tattoo\n2. Tap Pay Deposit or Pay in Full on any tattoo card\n3. WhatsApp opens with all your details pre-filled\n4. We confirm your slot once the deposit is received\n\nOr visit our Booking page to choose a session type directly.',
-    deposit:  'Deposit policy:\n\nDeposits are non-refundable and range from NZD 100–300. Your deposit comes off your final price.\n\nPlease give at least 48 hours notice to reschedule.',
-    artists:  'Our six resident artists:\n\nJames Tūhoe — Tā Moko and Polynesian\nAroha Ngāti — Portraiture and Realism\nKenji Murakami — Japanese Traditional\nLily Ashford — Fine Line and Minimalist\nDiego Reyes — Black and Grey and Script\nSophie Jamieson — Colour Realism and Floral',
-    hours:    'Studio hours:\n\nMonday to Saturday: 8:00 am to 8:00 pm\nSunday: 9:00 am to 2:00 pm\n\nAppointments preferred. Walk-ins welcome when availability allows.',
-    location: 'InkXas is a private studio in ' + STUDIO.suburb + ', New Zealand.\n\nWe also offer door-to-door service across Auckland.',
-    gallery:  'Our gallery showcases 24 pieces across multiple styles. Every tattoo card includes a price estimate and payment buttons.',
-    maori:    'Tā moko and Kirituhi are offered by James Tūhoe, who specialises in culturally grounded Māori and Polynesian tattoo design.',
-    fallback: 'Thanks for your question. For personalised assistance, please message our team directly via WhatsApp or through the Contact page.',
-  };
+  if (chatTrigger && chatWindow) {
+    var BOT = {
+      greeting: 'Kia ora! Welcome to ' + STUDIO.name + ' in ' + STUDIO.suburb + '.\n\nI can help with pricing, bookings, our artists, or anything else about the studio. What would you like to know?',
+      pricing:  'Our pricing guide in New Zealand dollars:\n\nSmall tattoos (1–2 hrs): NZD 200–350\nMedium tattoos (3–4 hrs): NZD 450–700\nLarge tattoos (5–8 hrs): NZD 800–1,700\nFull sleeves or mega pieces: NZD 2,000–4,500+\n\nAll sessions require a non-refundable deposit of NZD 100–300, which comes off your final price.',
+      booking:  'To book a session at InkXas:\n\n1. Browse our Gallery and select a tattoo\n2. Tap Pay Deposit or Pay in Full on any tattoo card\n3. WhatsApp opens with all your details pre-filled\n4. We confirm your slot once the deposit is received\n\nOr visit our Booking page to choose a session type directly.',
+      deposit:  'Deposit policy:\n\nDeposits are non-refundable and range from NZD 100–300. Your deposit comes off your final price.\n\nPlease give at least 48 hours notice to reschedule.',
+      artists:  'Our six resident artists:\n\nJames Tūhoe — Tā Moko and Polynesian\nAroha Ngāti — Portraiture and Realism\nKenji Murakami — Japanese Traditional\nLily Ashford — Fine Line and Minimalist\nDiego Reyes — Black and Grey and Script\nSophie Jamieson — Colour Realism and Floral',
+      hours:    'Studio hours:\n\nMonday to Saturday: 8:00 am to 8:00 pm\nSunday: 9:00 am to 2:00 pm\n\nAppointments preferred. Walk-ins welcome when availability allows.',
+      location: 'InkXas is a private studio in ' + STUDIO.suburb + ', New Zealand.\n\nWe also offer door-to-door service across Auckland.',
+      gallery:  'Our gallery showcases 24 pieces across multiple styles. Every tattoo card includes a price estimate and payment buttons.',
+      maori:    'Tā moko and Kirituhi are offered by James Tūhoe, who specialises in culturally grounded Māori and Polynesian tattoo design.',
+      fallback: 'Thanks for your question. For personalised assistance, please message our team directly via WhatsApp or through the Contact page.',
+    };
 
-  function getBotReply(input) {
-    var t = input.toLowerCase();
-    if (/kia ora|hello|hi there|hey|good (morning|afternoon|evening)/.test(t)) return BOT.greeting;
-    if (/pric|cost|nzd|dollar|how much|rate|fee/.test(t))                      return BOT.pricing;
-    if (/book|appoint|session|schedule|reserve|walk.?in/.test(t))              return BOT.booking;
-    if (/deposit|pay|full pay|upfront|payment|refund/.test(t))                 return BOT.deposit;
-    if (/artist|james|aroha|kenji|lily|diego|sophie|who|team|staff/.test(t))   return BOT.artists;
-    if (/hour|open|close|when|time|sunday|monday|saturday|availab/.test(t))    return BOT.hours;
-    if (/where|location|address|parnell|auckland|studio|door|travel/.test(t))  return BOT.location;
-    if (/gallery|example|work|photo|video|style|design|see|show/.test(t))      return BOT.gallery;
-    if (/m.ori|moko|polynesian|cultural|kirituhi/.test(t))                     return BOT.maori;
-    return BOT.fallback;
-  }
+    function getBotReply(input) {
+      var t = input.toLowerCase();
+      if (/kia ora|hello|hi there|hey|good (morning|afternoon|evening)/.test(t)) return BOT.greeting;
+      if (/pric|cost|nzd|dollar|how much|rate|fee/.test(t))                      return BOT.pricing;
+      if (/book|appoint|session|schedule|reserve|walk.?in/.test(t))              return BOT.booking;
+      if (/deposit|pay|full pay|upfront|payment|refund/.test(t))                 return BOT.deposit;
+      if (/artist|james|aroha|kenji|lily|diego|sophie|who|team|staff/.test(t))   return BOT.artists;
+      if (/hour|open|close|when|time|sunday|monday|saturday|availab/.test(t))    return BOT.hours;
+      if (/where|location|address|parnell|auckland|studio|door|travel/.test(t))  return BOT.location;
+      if (/gallery|example|work|photo|video|style|design|see|show/.test(t))      return BOT.gallery;
+      if (/m.ori|moko|polynesian|cultural|kirituhi/.test(t))                     return BOT.maori;
+      return BOT.fallback;
+    }
 
-  function appendMsg(text, sender) {
-    if (!chatMsgs) return;
-    var div = document.createElement('div');
-    div.className   = 'chat-msg ' + sender;
-    div.textContent = text;
-    chatMsgs.appendChild(div);
-    chatMsgs.scrollTop = chatMsgs.scrollHeight;
-  }
+    function appendMsg(text, sender) {
+      if (!chatMsgs) return;
+      var div = document.createElement('div');
+      div.className   = 'chat-msg ' + sender;
+      div.textContent = text;
+      chatMsgs.appendChild(div);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }
 
-  function sendMsg(text) {
-    if (!text || !text.trim()) return;
-    appendMsg(text, 'user');
-    if (chatInputEl) chatInputEl.value = '';
-    setTimeout(function () { appendMsg(getBotReply(text), 'bot'); }, 560);
-  }
+    function sendMsg(text) {
+      if (!text || !text.trim()) return;
+      appendMsg(text, 'user');
+      if (chatInputEl) chatInputEl.value = '';
+      setTimeout(function () { appendMsg(getBotReply(text), 'bot'); }, 560);
+    }
 
-  function closeChatbot() { if (chatWindow) chatWindow.classList.remove('open'); }
+    function closeChatbot() { chatWindow.classList.remove('open'); }
 
-  if (chatTrigger) {
     chatTrigger.addEventListener('click', function () {
-      if (!chatWindow) return;
       chatWindow.classList.toggle('open');
       if (chatWindow.classList.contains('open') && chatMsgs && chatMsgs.children.length === 0) {
         setTimeout(function () { appendMsg(BOT.greeting, 'bot'); }, 300);
       }
     });
+
+    if (chatCloseBtn) chatCloseBtn.addEventListener('click', closeChatbot);
+    if (chatSendBtn)  chatSendBtn.addEventListener('click',  function () { sendMsg(chatInputEl ? chatInputEl.value : ''); });
+    if (chatInputEl)  chatInputEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendMsg(chatInputEl.value); });
+
+    document.querySelectorAll('.quick-reply').forEach(function (btn) {
+      btn.addEventListener('click', function () { sendMsg(btn.textContent); });
+    });
+
+    /* ── Global ESC key ─────────────────────────────────────────── */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeArtistModal(); closeNav(); closeChatbot(); }
+    });
+  } else {
+    /* Pages without chatbot still need ESC for modal/nav */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeArtistModal(); closeNav(); }
+    });
   }
-  if (chatCloseBtn) chatCloseBtn.addEventListener('click', closeChatbot);
-  if (chatSendBtn)  chatSendBtn.addEventListener('click',  function () { sendMsg(chatInputEl ? chatInputEl.value : ''); });
-  if (chatInputEl)  chatInputEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') sendMsg(chatInputEl.value); });
-
-  document.querySelectorAll('.quick-reply').forEach(function (btn) {
-    btn.addEventListener('click', function () { sendMsg(btn.textContent); });
-  });
-
-  /* ── Global ESC key ─────────────────────────────────────────── */
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { closeArtistModal(); closeNav(); closeChatbot(); }
-  });
 
 }); /* end DOMContentLoaded */
 
 /* ================================================================
-   VIDEO AUTOPLAY — outside DOMContentLoaded so it runs after parse
-   Targets: .pro-card (index.html) AND .tattoo-card (gallery.html)
-   Desktop  → play on mouseenter, pause on mouseleave
-   Mobile   → play when card is ≥70% visible, pause otherwise
+   VIDEO AUTOPLAY
+   Runs after DOM is parsed (script is at bottom of <body>).
+   Covers BOTH page types:
+     index.html   → .pro-card    > .media-wrapper  > video.preview-video
+     gallery.html → .tattoo-card > .tattoo-media   > video (no class)
+
+   WHY we observe the VIDEO CONTAINER, not the whole card:
+   Gallery cards (.tattoo-card) are very tall — they contain a full
+   description, meaning, price row, deposit note, and two buttons below
+   the video. Waiting for 70% of the entire card to be on screen means
+   the video section would need to have almost scrolled OFF screen
+   before the threshold triggers.
+   By observing video.parentElement (.tattoo-media / .media-wrapper)
+   instead, we watch only the compact video area — same short height
+   on both pages. A 50% threshold on that element fires naturally as
+   the video scrolls into comfortable view.
+
+   Desktop  → play on mouseenter of the card / pause on mouseleave
+   Mobile   → IntersectionObserver on the VIDEO CONTAINER at ≥50%
    ================================================================ */
 (function initVideoAutoplay() {
+
   var canHover = window.matchMedia('(hover: hover)').matches;
 
-  /* Collect all video cards from both page types */
   var cards = Array.prototype.slice.call(
     document.querySelectorAll('.pro-card, .tattoo-card')
   );
 
   cards.forEach(function (card) {
-    /* Find the video inside — could be .preview-video or just a plain <video> */
+    /* Find video — .preview-video (index) or plain <video> (gallery) */
     var video = card.querySelector('.preview-video') || card.querySelector('video');
     if (!video) return;
 
-    /* Ensure correct attributes for mobile autoplay */
+    /* Ensure attributes required for autoplay on iOS / Android */
     video.muted       = true;
     video.playsInline = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('muted', '');
 
     if (canHover) {
-      /* ── Desktop: hover ──────────────────────────────────────── */
+      /* ── Desktop: hover anywhere on the card to play ─────────── */
       card.addEventListener('mouseenter', function () {
         video.play().catch(function () {});
       });
@@ -461,20 +494,33 @@ document.addEventListener('DOMContentLoaded', function () {
         video.pause();
         video.currentTime = 0;
       });
+
     } else {
-      /* ── Mobile: IntersectionObserver at 70% visibility ──────── */
+      /*
+       * ── Mobile: observe the VIDEO CONTAINER, not the full card ──
+       *
+       * video.parentElement:
+       *   index.html   → .media-wrapper  (short: just the video box)
+       *   gallery.html → .tattoo-media   (short: just the video box)
+       *
+       * Threshold 0.5 = play when half the video area is on screen.
+       * This fires reliably as users scroll through either page.
+       */
+      var videoContainer = video.parentElement || card;
+
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.7) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
             video.play().catch(function () {});
           } else {
             video.pause();
             video.currentTime = 0;
           }
         });
-      }, { threshold: [0, 0.7, 1.0] });
+      }, { threshold: [0, 0.5, 1.0] });
 
-      observer.observe(card);
+      observer.observe(videoContainer);
     }
   });
+
 })();
