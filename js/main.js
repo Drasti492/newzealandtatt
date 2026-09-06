@@ -927,7 +927,8 @@ document.addEventListener('DOMContentLoaded', function () {
               soon as the video area scrolls into view, not when
               the entire card (including text/buttons) is 70% visible.
    ================================================================ */
-(function initVideoAutoplay() {
+
+        (function initVideoAutoplay() {
 
   var canHover = window.matchMedia('(hover: hover)').matches;
 
@@ -944,24 +945,29 @@ document.addEventListener('DOMContentLoaded', function () {
     video.setAttribute('playsinline', '');
     video.setAttribute('muted', '');
 
+    function loadSrcIfNeeded() {
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+      }
+    }
+
     if (canHover) {
-      card.addEventListener('mouseenter', function() { video.play().catch(function() {}); });
+      card.addEventListener('mouseenter', function() { loadSrcIfNeeded(); video.play().catch(function() {}); });
       card.addEventListener('mouseleave', function() { video.pause(); video.currentTime = 0; });
     } else {
-      /* Observe the video container (.media-wrapper or .tattoo-media),
-         not the full card — so threshold is relative to the video area only */
       var target = video.parentElement || card;
 
       var obs = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            loadSrcIfNeeded();
             video.play().catch(function() {});
           } else {
             video.pause();
             video.currentTime = 0;
           }
         });
-      }, { threshold: [0, 0.5, 1.0] });
+      }, { threshold: [0, 0.5, 1.0], rootMargin: '150px 0px' });
 
       obs.observe(target);
     }
