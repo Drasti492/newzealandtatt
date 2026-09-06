@@ -929,7 +929,7 @@ document.addEventListener('DOMContentLoaded', function () {
    ================================================================ */
 
       
-      (function initVideoAutoplay() {
+   (function initVideoAutoplay() {
 
   var canHover = window.matchMedia('(hover: hover)').matches;
 
@@ -943,14 +943,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  var videos = [];
+
+  cards.forEach(function(card) {
+    var video = card.querySelector('.preview-video') || card.querySelector('video');
+    if (!video) return;
+
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('muted', '');
+
+    videos.push(video);
+
+    /* ── Load the source early, well before it needs to play,
+       so the first frame is ready as soon as it's near view ────── */
+    var loadObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadSrcIfNeeded(video);
+          loadObs.disconnect();
+        }
+      });
+    }, { rootMargin: '250px 0px', threshold: 0.01 });
+
+    loadObs.observe(video.parentElement || card);
+  });
+
   if (canHover) {
-    /* ── DESKTOP: hover to play, as before ─────────────────────── */
+    /* ── DESKTOP: hover to play, exactly as before ────────────── */
     cards.forEach(function(card) {
       var video = card.querySelector('.preview-video') || card.querySelector('video');
       if (!video) return;
-
-      video.muted = true;
-      video.playsInline = true;
 
       card.addEventListener('mouseenter', function() {
         loadSrcIfNeeded(video);
@@ -963,21 +987,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   } else {
-    /* ── MOBILE: only ONE video plays at a time — whichever
-       covers the most of the screen, once it crosses 70% ──────── */
-
-    var ratios = new Map();   // video -> current intersection ratio
+    /* ── MOBILE: only the video covering 70%+ of its own area
+       plays, and only one at a time ──────────────────────────── */
+    var ratios = new Map();
+    videos.forEach(function(video) { ratios.set(video, 0); });
     var currentPlaying = null;
-
-    var videos = cards.map(function(card) {
-      var video = card.querySelector('.preview-video') || card.querySelector('video');
-      if (video) {
-        video.muted = true;
-        video.playsInline = true;
-        ratios.set(video, 0);
-      }
-      return video;
-    }).filter(Boolean);
 
     function updatePlayback() {
       var best = null;
@@ -1002,16 +1016,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    var obs = new IntersectionObserver(function(entries) {
+    var playObs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        ratios.set(entry.target, entry.intersectionRatio);
+        var video = entry.target.querySelector('video') || entry.target;
+        ratios.set(video, entry.intersectionRatio);
       });
       updatePlayback();
     }, { threshold: [0, 0.3, 0.5, 0.7, 0.85, 1.0] });
 
     videos.forEach(function(video) {
-      var target = video.parentElement || video;
-      obs.observe(target);
+      playObs.observe(video.parentElement || video);
     });
   }
 
