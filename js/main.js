@@ -928,7 +928,8 @@ document.addEventListener('DOMContentLoaded', function () {
               the entire card (including text/buttons) is 70% visible.
    ================================================================ */
 
-        (function initVideoAutoplay() {
+      
+      (function initVideoAutoplay() {
 
   var canHover = window.matchMedia('(hover: hover)').matches;
 
@@ -936,41 +937,82 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.pro-card, .tattoo-card')
   );
 
-  cards.forEach(function(card) {
-    var video = card.querySelector('.preview-video') || card.querySelector('video');
-    if (!video) return;
+  function loadSrcIfNeeded(video) {
+    if (!video.src && video.dataset.src) {
+      video.src = video.dataset.src;
+    }
+  }
 
-    video.muted       = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('muted', '');
+  if (canHover) {
+    /* ── DESKTOP: hover to play, as before ─────────────────────── */
+    cards.forEach(function(card) {
+      var video = card.querySelector('.preview-video') || card.querySelector('video');
+      if (!video) return;
 
-    function loadSrcIfNeeded() {
-      if (!video.src && video.dataset.src) {
-        video.src = video.dataset.src;
+      video.muted = true;
+      video.playsInline = true;
+
+      card.addEventListener('mouseenter', function() {
+        loadSrcIfNeeded(video);
+        video.play().catch(function() {});
+      });
+      card.addEventListener('mouseleave', function() {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+
+  } else {
+    /* ── MOBILE: only ONE video plays at a time — whichever
+       covers the most of the screen, once it crosses 70% ──────── */
+
+    var ratios = new Map();   // video -> current intersection ratio
+    var currentPlaying = null;
+
+    var videos = cards.map(function(card) {
+      var video = card.querySelector('.preview-video') || card.querySelector('video');
+      if (video) {
+        video.muted = true;
+        video.playsInline = true;
+        ratios.set(video, 0);
+      }
+      return video;
+    }).filter(Boolean);
+
+    function updatePlayback() {
+      var best = null;
+      var bestRatio = 0;
+      ratios.forEach(function(ratio, video) {
+        if (ratio >= 0.7 && ratio > bestRatio) {
+          best = video;
+          bestRatio = ratio;
+        }
+      });
+
+      if (best !== currentPlaying) {
+        if (currentPlaying) {
+          currentPlaying.pause();
+          currentPlaying.currentTime = 0;
+        }
+        if (best) {
+          loadSrcIfNeeded(best);
+          best.play().catch(function() {});
+        }
+        currentPlaying = best;
       }
     }
 
-    if (canHover) {
-      card.addEventListener('mouseenter', function() { loadSrcIfNeeded(); video.play().catch(function() {}); });
-      card.addEventListener('mouseleave', function() { video.pause(); video.currentTime = 0; });
-    } else {
-      var target = video.parentElement || card;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        ratios.set(entry.target, entry.intersectionRatio);
+      });
+      updatePlayback();
+    }, { threshold: [0, 0.3, 0.5, 0.7, 0.85, 1.0] });
 
-      var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            loadSrcIfNeeded();
-            video.play().catch(function() {});
-          } else {
-            video.pause();
-            video.currentTime = 0;
-          }
-        });
-      }, { threshold: [0, 0.5, 1.0], rootMargin: '150px 0px' });
-
+    videos.forEach(function(video) {
+      var target = video.parentElement || video;
       obs.observe(target);
-    }
-  });
+    });
+  }
 
 })();
