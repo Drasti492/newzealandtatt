@@ -4,7 +4,7 @@
    ================================================================ */
 
 const STUDIO = {
-  whatsapp: '19155032586',   // ← replace with real WhatsApp number
+  whatsapp: '64224048226',   // ← real WhatsApp number
   name:     'InkXas Auckland',
   suburb:   'Parnell, Auckland',
 };
