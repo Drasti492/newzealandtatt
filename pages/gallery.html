@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gallery | InkXas Auckland — Custom Tattoo Studio</title>
   <meta name="description" content="Browse InkXas Auckland's full gallery of 24 custom tattoos. Each piece includes pricing, deposit details, and direct WhatsApp booking." />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="InkXas Auckland">
+  <meta property="og:title" content="Gallery | InkXas Auckland — Custom Tattoo Studio">
+  <meta property="og:description" content="Browse InkXas Auckland's full gallery of 24 custom tattoos, filterable by style and by size/budget.">
+  <meta property="og:image" content="https://newzealandtatt.vercel.app/pages/gallery/inkxashero1.jpg">
+  <meta property="og:url" content="https://newzealandtatt.vercel.app/pages/gallery.html">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -48,7 +60,7 @@
       <div class="hero-content">
         <p class="hero-eyebrow">Custom Tattoo Work</p>
         <h1 id="galleryHeroTitle" class="hero-title">Our <em>Gallery</em></h1>
-        <p class="hero-sub">Browse 24 original custom tattoos from our team. Each piece includes a full price estimate, deposit details, and direct WhatsApp booking.</p>
+        <p class="hero-sub">Browse 24 original custom tattoos from our team. Filter by style or by size/budget, then book the piece you like directly.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary btn-lg" href="#tattooGrid">Browse Tattoos</a>
           <a class="btn btn-ghost btn-lg"   href="./book.html">Book a Session</a>
@@ -63,18 +75,33 @@
       <p class="section-eyebrow">24 Original Pieces</p>
       <h2 class="section-title">Selected Works</h2>
 
-      <!-- FILTER -->
-      <div class="gallery-filter">
-        <button class="filter-btn active" data-filter="all">All Styles</button>
-        <button class="filter-btn" data-filter="colour">Colour Realism</button>
-        <button class="filter-btn" data-filter="blackgrey">Black and Grey</button>
-        <button class="filter-btn" data-filter="fineline">Fine Line</button>
+      <!-- STYLE FILTER -->
+      <div class="gallery-filter-group">
+        <p class="filter-label">Filter by Style</p>
+        <div class="gallery-filter" id="styleFilters">
+          <button class="filter-btn active" data-filter="all">All Styles</button>
+          <button class="filter-btn" data-filter="colour">Colour Realism</button>
+          <button class="filter-btn" data-filter="blackgrey">Black and Grey</button>
+          <button class="filter-btn" data-filter="fineline">Fine Line</button>
+        </div>
+      </div>
+
+      <!-- SIZE / BUDGET FILTER -->
+      <div class="gallery-filter-group">
+        <p class="filter-label">Filter by Size / Budget</p>
+        <div class="gallery-filter" id="tierFilters">
+          <button class="filter-btn active" data-tier-filter="all">All Sizes</button>
+          <button class="filter-btn" data-tier-filter="small">Small (NZD 480–650)</button>
+          <button class="filter-btn" data-tier-filter="medium">Medium (NZD 650–1,100)</button>
+          <button class="filter-btn" data-tier-filter="large">Large (NZD 1,000–1,700)</button>
+          <button class="filter-btn" data-tier-filter="mega">Mega (NZD 2,000–2,800)</button>
+        </div>
       </div>
 
       <div class="gallery-grid">
 
         <!-- 1 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/angry-bird.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -85,19 +112,17 @@
             <p class="tattoo-description">A vibrant forearm sleeve featuring characters rendered in hyper-realistic colour. Bold outlines give way to seamlessly blended saturated pigment.</p>
             <p class="tattoo-meaning">Playful rebellion and the satisfaction of overcoming obstacles — a lighthearted reminder not to take life too seriously.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 850 – 1,100</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="angry-bird">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="angry-bird">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="angry-bird">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=angry-bird" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 2 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/back-flower.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -108,19 +133,17 @@
             <p class="tattoo-description">An expansive upper back piece featuring oversized peonies and botanicals in full colour realism.</p>
             <p class="tattoo-meaning">Femininity, prosperity, and the fleeting beauty of nature. The peony is considered a flower of good fortune.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="back-flower">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="back-flower">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="back-flower">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=back-flower" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 3 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/butterfly-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -131,19 +154,17 @@
             <p class="tattoo-description">A photorealistic butterfly rendered with extraordinary attention to wing texture, iridescence, and depth.</p>
             <p class="tattoo-meaning">Transformation, freedom, and the beauty of change.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 650 – 850</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="butterfly-arm">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="butterfly-arm">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="butterfly-arm">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=butterfly-arm" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 4 -->
-        <div class="tattoo-card" data-category="blackgrey">
+        <div class="tattoo-card" data-category="blackgrey" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/crying-lady-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Black and Grey</span>
@@ -154,19 +175,17 @@
             <p class="tattoo-description">A striking black and grey portrait of a weeping woman rendered with cinematic shading.</p>
             <p class="tattoo-meaning">Grief, resilience, and the strength it takes to feel deeply.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="crying-lady">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="crying-lady">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="crying-lady">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=crying-lady" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 5 -->
-        <div class="tattoo-card" data-category="blackgrey">
+        <div class="tattoo-card" data-category="blackgrey" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/god-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Black and Grey</span>
@@ -177,19 +196,17 @@
             <p class="tattoo-description">A neo-traditional interpretation of Zeus in bold black and grey with dramatic cloud formations.</p>
             <p class="tattoo-meaning">Power, leadership, and the capacity to bring order from chaos.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="greek-god">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="greek-god">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="greek-god">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=greek-god" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 6 -->
-        <div class="tattoo-card" data-category="fineline">
+        <div class="tattoo-card" data-category="fineline" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/fonts-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Fine Line</span>
@@ -200,19 +217,17 @@
             <p class="tattoo-description">An elegant combination of fine-line roses and ornamental lettering flowing across the forearm.</p>
             <p class="tattoo-meaning">The balance between beauty and expression.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 850 – 1,100</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="rose-typography">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="rose-typography">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="rose-typography">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=rose-typography" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 7 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/arm-zombie.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Horror</span>
@@ -223,19 +238,17 @@
             <p class="tattoo-description">A dramatic half sleeve depicting a post-apocalyptic scene in vivid colour.</p>
             <p class="tattoo-meaning">Fascination with mortality and the macabre.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="zombie-sleeve">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="zombie-sleeve">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="zombie-sleeve">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=zombie-sleeve" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 8 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/huge-flower.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -246,19 +259,17 @@
             <p class="tattoo-description">An oversized peony in full bloom rendered in layered colour realism.</p>
             <p class="tattoo-meaning">Honour, romance, and prosperity.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="giant-peony">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="giant-peony">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="giant-peony">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=giant-peony" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 9 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/leopard-hand.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -269,19 +280,17 @@
             <p class="tattoo-description">A full hand piece featuring a leopard face in rich colour realism with spotted patterns extending across the fingers.</p>
             <p class="tattoo-meaning">Stealth, independence, and power.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,000 – 1,350</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="leopard-hand">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="leopard-hand">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="leopard-hand">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=leopard-hand" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 10 -->
-        <div class="tattoo-card" data-category="fineline">
+        <div class="tattoo-card" data-category="fineline" data-tier="small">
           <div class="tattoo-media">
             <video data-src="./gallery/line-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Fine Line</span>
@@ -292,19 +301,17 @@
             <p class="tattoo-description">Clean, precise geometric linework flowing across the forearm with mathematical precision.</p>
             <p class="tattoo-meaning">Order, symmetry, and the belief that beauty exists in structure.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 480 – 650</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="geometric-lines">NZD —</span>
+              <span class="tattoo-price-sub">Small tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="geometric-lines">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="geometric-lines">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=geometric-lines" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 11 -->
-        <div class="tattoo-card" data-category="blackgrey">
+        <div class="tattoo-card" data-category="blackgrey" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/lion-arm.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Black and Grey</span>
@@ -315,19 +322,17 @@
             <p class="tattoo-description">A majestic black and grey lion with extraordinary mane texture and depth of gaze.</p>
             <p class="tattoo-meaning">Courage, family, and the dignity of leadership.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,150 – 1,500</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="lion-arm">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="lion-arm">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="lion-arm">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=lion-arm" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 12 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="small">
           <div class="tattoo-media">
             <video data-src="./gallery/butterfly-arm-blue.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -338,19 +343,17 @@
             <p class="tattoo-description">A stunning Blue Morpho butterfly in luminous colour, capturing iridescent wing quality.</p>
             <p class="tattoo-meaning">Rare beauty and the joy found in fleeting moments.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 480 – 650</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="blue-butterfly">NZD —</span>
+              <span class="tattoo-price-sub">Small tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="blue-butterfly">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="blue-butterfly">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=blue-butterfly" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 13 -->
-        <div class="tattoo-card" data-category="blackgrey">
+        <div class="tattoo-card" data-category="blackgrey" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/owl-leg.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Black and Grey</span>
@@ -361,19 +364,17 @@
             <p class="tattoo-description">A finely rendered black and grey owl with wings slightly spread, occupying the full calf.</p>
             <p class="tattoo-meaning">Wisdom, intuition, and the ability to see what others cannot.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,000 – 1,300</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="owl-leg">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="owl-leg">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="owl-leg">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=owl-leg" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 14 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/shoulder-red-lips.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Pop Art</span>
@@ -384,19 +385,17 @@
             <p class="tattoo-description">Bold, graphic red lips in a painterly sketch style with expressive linework and vivid colour.</p>
             <p class="tattoo-meaning">Confidence, sensuality, and self-expression.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 650 – 850</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="red-lips">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="red-lips">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="red-lips">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=red-lips" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 15 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/square-flower.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Neo-Traditional</span>
@@ -407,19 +406,17 @@
             <p class="tattoo-description">A neo-traditional floral composition framed within a clean geometric border.</p>
             <p class="tattoo-meaning">Growth within boundaries.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 850 – 1,100</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="framed-floral">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="framed-floral">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="framed-floral">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=framed-floral" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 16 -->
-        <div class="tattoo-card" data-category="blackgrey">
+        <div class="tattoo-card" data-category="blackgrey" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/wolf-leg.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Black and Grey</span>
@@ -430,19 +427,17 @@
             <p class="tattoo-description">A powerful black and grey wolf howling at a full moon across the upper thigh.</p>
             <p class="tattoo-meaning">Loyalty, instinct, and freedom.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="wolf-thigh">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="wolf-thigh">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="wolf-thigh">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=wolf-thigh" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 17 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/flower-backk.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -453,19 +448,17 @@
             <p class="tattoo-description">A cascading arrangement of flowers flowing down the spine to the lower back in full colour realism.</p>
             <p class="tattoo-meaning">Strength and beauty united along the backbone.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,350 – 1,700</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="spine-floral">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="spine-floral">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="spine-floral">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=spine-floral" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 18 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="mega">
           <div class="tattoo-media">
             <video data-src="./gallery/lion-arm-hd.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -476,19 +469,17 @@
             <p class="tattoo-description">An extraordinary full sleeve featuring a hyper-realistic lion in full colour.</p>
             <p class="tattoo-meaning">Ultimate strength and presence.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 2,000 – 2,800</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="lion-hd">NZD —</span>
+              <span class="tattoo-price-sub">Mega tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 300</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="lion-hd">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="lion-hd">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=lion-hd" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 19 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="small">
           <div class="tattoo-media">
             <video data-src="./gallery/ankle-smoking-cat.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Neo-Traditional</span>
@@ -499,19 +490,17 @@
             <p class="tattoo-description">A cheeky neo-traditional cat with a cigarette in classic tattoo flash style.</p>
             <p class="tattoo-meaning">Irreverence, independence, and living by your own rules.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 480 – 650</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="smoking-cat">NZD —</span>
+              <span class="tattoo-price-sub">Small tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="smoking-cat">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="smoking-cat">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=smoking-cat" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 20 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="large">
           <div class="tattoo-media">
             <video data-src="./gallery/monster-hand.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Horror</span>
@@ -522,19 +511,17 @@
             <p class="tattoo-description">A horror-inspired monster claw extending across the hand and fingers with skin-tearing detail.</p>
             <p class="tattoo-meaning">Embracing the darker side of imagination.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 1,000 – 1,350</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="monster-hand">NZD —</span>
+              <span class="tattoo-price-sub">Large tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 200</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="monster-hand">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="monster-hand">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=monster-hand" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 21 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/arm-butterfly-discovery.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -545,19 +532,17 @@
             <p class="tattoo-description">A colour realism half sleeve following metamorphosis from chrysalis to fully emerged butterfly.</p>
             <p class="tattoo-meaning">Personal transformation and the courage to go through necessary change.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 850 – 1,100</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="butterfly-disc">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="butterfly-disc">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="butterfly-disc">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=butterfly-disc" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 22 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="medium">
           <div class="tattoo-media">
             <video data-src="./gallery/rose-flower-rib.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Colour Realism</span>
@@ -568,19 +553,17 @@
             <p class="tattoo-description">A rich red rose in full bloom rendered along the ribs in colour realism.</p>
             <p class="tattoo-meaning">Love, passion, and the acceptance of both beauty and thorns.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 850 – 1,100</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="rib-rose">NZD —</span>
+              <span class="tattoo-price-sub">Medium tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 150</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="rib-rose">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="rib-rose">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=rib-rose" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 23 -->
-        <div class="tattoo-card" data-category="fineline">
+        <div class="tattoo-card" data-category="fineline" data-tier="small">
           <div class="tattoo-media">
             <video data-src="./gallery/flower-ankle.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Fine Line</span>
@@ -591,19 +574,17 @@
             <p class="tattoo-description">A refined fine-line floral wrapping delicately around the ankle with feather-light precision.</p>
             <p class="tattoo-meaning">Grace, new beginnings, and the power in small things.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 480 – 650</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="ankle-flower">NZD —</span>
+              <span class="tattoo-price-sub">Small tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 100</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="ankle-flower">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="ankle-flower">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=ankle-flower" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
 
         <!-- 24 -->
-        <div class="tattoo-card" data-category="colour">
+        <div class="tattoo-card" data-category="colour" data-tier="mega">
           <div class="tattoo-media">
             <video data-src="./gallery/arm-mixed-images.mp4" muted playsinline preload="none" loop></video>
             <span class="tattoo-badge">Mixed Styles</span>
@@ -614,13 +595,11 @@
             <p class="tattoo-description">A full arm sleeve built from individually framed vignettes in mixed styles unified by a cohesive tonal palette.</p>
             <p class="tattoo-meaning">The richness of a life lived fully, with many chapters.</p>
             <div class="tattoo-price-row">
-              <span class="tattoo-price-est">NZD 2,000 – 2,800</span>
-              <span class="tattoo-price-sub">estimated</span>
+              <span class="tattoo-price-est" data-price-for="patchwork-sleeve">NZD —</span>
+              <span class="tattoo-price-sub">Mega tier</span>
             </div>
-            <p class="tattoo-deposit-note">Deposit to book: <strong>NZD 300</strong></p>
-            <div class="tattoo-actions">
-              <button class="btn btn-outline" data-wa-deposit="patchwork-sleeve">Pay Deposit</button>
-              <button class="btn btn-primary" data-wa-full="patchwork-sleeve">Pay in Full</button>
+            <div class="tattoo-actions single-action">
+              <a href="./book.html?piece=patchwork-sleeve" class="book-btn">Book Similar</a>
             </div>
           </div>
         </div>
@@ -632,12 +611,17 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div>
-        <p>&copy; <span data-year></span> InkXas Auckland &mdash; Private Tattoo Studio, Parnell</p>
+      <p>&copy; <span data-year></span> InkXas Auckland &mdash; Private Tattoo Studio, Parnell</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/inkxasauckland" class="social-link" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://facebook.com/inkxasauckland" class="social-link" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://tiktok.com/@inkxasauckland" class="social-link" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
       </div>
       <div class="footer-links">
         <a href="./book.html">Booking</a>
         <a href="./gallery.html">Gallery</a>
+        <a href="./about.html">About</a>
+        <a href="./faq.html">FAQ &amp; Aftercare</a>
         <a href="./contact.html">Contact</a>
       </div>
     </div>
