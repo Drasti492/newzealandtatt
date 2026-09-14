@@ -4,7 +4,7 @@
    ================================================================ */
 
 const STUDIO = {
-  whatsapp: '64224048226',   // ← real WhatsApp number
+  whatsapp: '64224048226',
   name:     'InkXas Auckland',
   suburb:   'Parnell, Auckland',
 };
@@ -13,22 +13,78 @@ function buildWaUrl(msg) {
   return 'https://wa.me/' + STUDIO.whatsapp + '?text=' + encodeURIComponent(msg);
 }
 
-/* ── Session types (single source of truth) ───────────────────── */
+/* ── Global toast helper — used by the booking modal AND the
+   contact form, so it lives at the top level, not nested inside
+   a single DOMContentLoaded callback. ─────────────────────────── */
+function showToast(msg, duration) {
+  var toast = document.getElementById('toastNotification') || document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, duration || 4000);
+}
+
+/* ── Tattoo size tiers — SINGLE SOURCE OF TRUTH for pricing ──────
+   Every page (index.html, book.html, gallery.html) and the booking
+   modal below reads its numbers from here or from real, researched
+   Auckland market rates. Change a price ONCE, here, and update the
+   matching price guide table on book.html to stay in sync. */
+const SIZE_TIERS = {
+  small: {
+    label:    'Small',
+    hours:    'Up to 3 hours',
+    priceMin: 480,
+    priceMax: 650,
+    deposit:  100,
+  },
+  medium: {
+    label:    'Medium',
+    hours:    '4–5 hours',
+    priceMin: 650,
+    priceMax: 1100,
+    deposit:  150,
+  },
+  large: {
+    label:    'Large',
+    hours:    '6–8 hours',
+    priceMin: 1000,
+    priceMax: 1700,
+    deposit:  200,
+  },
+  mega: {
+    label:    'Mega / Full Sleeve',
+    hours:    '12+ hours',
+    priceMin: 2000,
+    priceMax: 2800,
+    deposit:  300,
+  },
+};
+
+/* Door-to-Door travel fee — added on top of the size-tier price,
+   confirmed exactly once the client's location is known. */
+const TRAVEL_FEE = { min: 100, max: 250 };
+
+/* ── Session/location types ───────────────────────────────────────
+   Studio Session and Door-to-Door price off SIZE_TIERS (the modal
+   asks for tattoo size as a second step). Custom Mega Project is
+   flat/fixed because it's a *multi-session*, fully custom, priority
+   package (full sleeve + back combos, ongoing collaborations) — a
+   different thing from a single long Mega-tier sitting. */
 const SESSIONS = {
   'Studio Session': {
-    price:   'NZD 200+',
-    deposit: 100,
-    blurb:   'Private Parnell studio — one-on-one, fully equipped',
+    blurb:    'Private Parnell studio — one-on-one, fully equipped',
+    usesSize: true,
   },
   'Door-to-Door': {
-    price:   'NZD 450+',
-    deposit: 150,
-    blurb:   'Artist travels to your home or venue across Auckland',
+    blurb:     'Artist travels to your home or venue across Auckland',
+    usesSize:  true,
+    travelFee: true,
   },
   'Custom Mega Project': {
-    price:   'NZD 650+ per session',
-    deposit: 300,
-    blurb:   'Full sleeves, back pieces, multi-session projects',
+    price:    'NZD 650+ per session',
+    deposit:  300,
+    blurb:    'Multi-session custom projects — full sleeves, back combos',
+    usesSize: false,
   },
 };
 
@@ -97,32 +153,48 @@ function resolvePhoto(path) {
   return path;
 }
 
-/* ── Tattoo data ───────────────────────────────────────────────── */
+/* ── Tattoo data ───────────────────────────────────────────────────
+   Every piece carries a `tier` key pointing at SIZE_TIERS. Deposit
+   is ALWAYS looked up from the tier at booking time — never stored
+   per-piece — so a price change to SIZE_TIERS updates every one of
+   these automatically without editing this list.
+   The first 24 entries are the full gallery (gallery.html); the
+   final 6 are the homepage preview videos (index.html), added here
+   so their "Book Similar" buttons carry real size/price context
+   instead of opening a blank enquiry. ───────────────────────────── */
 const TATTOOS = {
-  'angry-bird':       { name: 'Angry Birds Sleeve',         style: 'Colour cartoon realism',  placement: 'Forearm',             hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, deposit: 150 },
-  'back-flower':      { name: 'Large Back Floral',           style: 'Colour realism',           placement: 'Full upper back',     hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, deposit: 200 },
-  'butterfly-arm':    { name: 'Realistic Butterfly',         style: 'Colour realism',           placement: 'Inner forearm',       hours: 'approx 4 hours',  priceMin: 650,  priceMax: 850,  deposit: 150 },
-  'crying-lady':      { name: 'Crying Woman Portrait',       style: 'Black and grey realism',   placement: 'Upper arm',           hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, deposit: 200 },
-  'greek-god':        { name: 'Greek God — Zeus',            style: 'Black and grey',           placement: 'Outer arm',           hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, deposit: 200 },
-  'rose-typography':  { name: 'Rose and Typography Sleeve',  style: 'Fine line',                placement: 'Full forearm',        hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, deposit: 150 },
-  'zombie-sleeve':    { name: 'Zombie Apocalypse Sleeve',    style: 'Colour horror realism',    placement: 'Half sleeve',         hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, deposit: 200 },
-  'giant-peony':      { name: 'Giant Peony Statement',       style: 'Colour realism',           placement: 'Shoulder cap',        hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, deposit: 200 },
-  'leopard-hand':     { name: 'Leopard Hand Tattoo',         style: 'Realistic animal',         placement: 'Full hand',           hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1350, deposit: 200 },
-  'geometric-lines':  { name: 'Minimal Geometric Lines',     style: 'Fine line abstract',       placement: 'Forearm',             hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  deposit: 100 },
-  'lion-arm':         { name: 'Lion Portrait',               style: 'Black and grey realism',   placement: 'Upper arm',           hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, deposit: 200 },
-  'blue-butterfly':   { name: 'Blue Morpho Butterfly',       style: 'Vibrant colour realism',   placement: 'Inner arm',           hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  deposit: 100 },
-  'owl-leg':          { name: 'Wise Owl Calf Piece',         style: 'Black and grey realism',   placement: 'Lower leg',           hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, deposit: 200 },
-  'red-lips':         { name: 'Red Lips Sketch',             style: 'Colour pop art',           placement: 'Shoulder',            hours: 'approx 4 hours',  priceMin: 650,  priceMax: 850,  deposit: 150 },
-  'framed-floral':    { name: 'Framed Floral Square',        style: 'Neo-traditional',          placement: 'Forearm panel',       hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, deposit: 150 },
-  'wolf-thigh':       { name: 'Howling Wolf Thigh',          style: 'Black and grey realism',   placement: 'Upper thigh',         hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, deposit: 200 },
-  'spine-floral':     { name: 'Spine Floral Cascade',        style: 'Colour realism',           placement: 'Spine to lower back', hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, deposit: 200 },
-  'lion-hd':          { name: 'Hyper-Realistic Lion HD',     style: 'Full colour realism',      placement: 'Full sleeve',         hours: 'approx 12 hours', priceMin: 2000, priceMax: 2800, deposit: 300 },
-  'smoking-cat':      { name: 'Smoking Cat Ankle',           style: 'Neo-traditional',          placement: 'Ankle wrap',          hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  deposit: 100 },
-  'monster-hand':     { name: 'Monster Claw Hand',           style: 'Colour horror',            placement: 'Hand and fingers',    hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1350, deposit: 200 },
-  'butterfly-disc':   { name: 'Butterfly Discovery Sleeve',  style: 'Colour realism',           placement: 'Half sleeve',         hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, deposit: 150 },
-  'rib-rose':         { name: 'Red Rose Rib Piece',          style: 'Colour realism',           placement: 'Side ribs',           hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, deposit: 150 },
-  'ankle-flower':     { name: 'Delicate Ankle Flower',       style: 'Fine line floral',         placement: 'Ankle',               hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  deposit: 100 },
-  'patchwork-sleeve': { name: 'Collage Patchwork Sleeve',    style: 'Mixed styles',             placement: 'Full arm',            hours: 'approx 12 hours', priceMin: 2000, priceMax: 2800, deposit: 300 },
+  'angry-bird':       { name: 'Angry Birds Sleeve',         style: 'Colour cartoon realism',      placement: 'Forearm',              hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
+  'back-flower':      { name: 'Large Back Floral',          style: 'Colour realism',              placement: 'Full upper back',      hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
+  'butterfly-arm':    { name: 'Realistic Butterfly',        style: 'Colour realism',              placement: 'Inner forearm',        hours: 'approx 4 hours',  priceMin: 650,  priceMax: 850,  tier: 'medium' },
+  'crying-lady':      { name: 'Crying Woman Portrait',      style: 'Black and grey realism',      placement: 'Upper arm',            hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, tier: 'large' },
+  'greek-god':        { name: 'Greek God — Zeus',           style: 'Black and grey',              placement: 'Outer arm',            hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, tier: 'large' },
+  'rose-typography':  { name: 'Rose and Typography Sleeve', style: 'Fine line',                   placement: 'Full forearm',         hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
+  'zombie-sleeve':    { name: 'Zombie Apocalypse Sleeve',   style: 'Colour horror realism',       placement: 'Half sleeve',          hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, tier: 'large' },
+  'giant-peony':      { name: 'Giant Peony Statement',      style: 'Colour realism',              placement: 'Shoulder cap',         hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, tier: 'large' },
+  'leopard-hand':     { name: 'Leopard Hand Tattoo',        style: 'Realistic animal',            placement: 'Full hand',            hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1350, tier: 'large' },
+  'geometric-lines':  { name: 'Minimal Geometric Lines',    style: 'Fine line abstract',          placement: 'Forearm',              hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  tier: 'small' },
+  'lion-arm':         { name: 'Lion Portrait',              style: 'Black and grey realism',      placement: 'Upper arm',            hours: 'approx 7 hours',  priceMin: 1150, priceMax: 1500, tier: 'large' },
+  'blue-butterfly':   { name: 'Blue Morpho Butterfly',      style: 'Vibrant colour realism',      placement: 'Inner arm',            hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  tier: 'small' },
+  'owl-leg':          { name: 'Wise Owl Calf Piece',        style: 'Black and grey realism',      placement: 'Lower leg',            hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, tier: 'large' },
+  'red-lips':         { name: 'Red Lips Sketch',            style: 'Colour pop art',              placement: 'Shoulder',             hours: 'approx 4 hours',  priceMin: 650,  priceMax: 850,  tier: 'medium' },
+  'framed-floral':    { name: 'Framed Floral Square',       style: 'Neo-traditional',             placement: 'Forearm panel',        hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
+  'wolf-thigh':       { name: 'Howling Wolf Thigh',         style: 'Black and grey realism',      placement: 'Upper thigh',          hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
+  'spine-floral':     { name: 'Spine Floral Cascade',       style: 'Colour realism',              placement: 'Spine to lower back',  hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
+  'lion-hd':          { name: 'Hyper-Realistic Lion HD',    style: 'Full colour realism',         placement: 'Full sleeve',          hours: 'approx 12 hours', priceMin: 2000, priceMax: 2800, tier: 'mega' },
+  'smoking-cat':      { name: 'Smoking Cat Ankle',          style: 'Neo-traditional',             placement: 'Ankle wrap',           hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  tier: 'small' },
+  'monster-hand':     { name: 'Monster Claw Hand',          style: 'Colour horror',               placement: 'Hand and fingers',     hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1350, tier: 'large' },
+  'butterfly-disc':   { name: 'Butterfly Discovery Sleeve', style: 'Colour realism',              placement: 'Half sleeve',          hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
+  'rib-rose':         { name: 'Red Rose Rib Piece',         style: 'Colour realism',              placement: 'Side ribs',            hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
+  'ankle-flower':     { name: 'Delicate Ankle Flower',      style: 'Fine line floral',            placement: 'Ankle',                hours: 'approx 3 hours',  priceMin: 480,  priceMax: 650,  tier: 'small' },
+  'patchwork-sleeve': { name: 'Collage Patchwork Sleeve',   style: 'Mixed styles',                placement: 'Full arm',             hours: 'approx 12 hours', priceMin: 2000, priceMax: 2800, tier: 'mega' },
+
+  /* Homepage preview pieces (index.html gallery-preview section) */
+  'vulture-back':          { name: 'Vulture Back Piece',        style: 'Black and grey realism',      placement: 'Upper back',           hours: 'approx 9 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
+  'vulture-chest-mirror':  { name: 'Vulture Chess Mirror Chest', style: 'Black and grey surrealism',  placement: 'Full chest',           hours: 'approx 12 hours', priceMin: 2000, priceMax: 2800, tier: 'mega' },
+  'ghost-hand':            { name: 'Ghost Virgin Mary Hand',     style: 'Blackwork with white highlights', placement: 'Full hand',       hours: 'approx 6 hours',  priceMin: 1000, priceMax: 1300, tier: 'large' },
+  'rose-waist':            { name: 'Red Rose Waist',             style: 'Colour realism',              placement: 'Lower stomach and waist', hours: 'approx 6 hours', priceMin: 1000, priceMax: 1300, tier: 'large' },
+  'vulture-hand':          { name: 'Vulture Hand Tattoo',        style: 'Dark realism',                placement: 'Hand and fingers',     hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
+  'butterfly-hip':         { name: 'Rose and Butterfly Hip',     style: 'Colour realism',              placement: 'Hip and thigh area',   hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
 };
 
 /* ================================================================
@@ -326,9 +398,8 @@ function injectBookingModal() {
               <div class="bk-dot"></div>
               <div class="bk-sess-info">
                 <strong>Studio Session</strong>
-                <span>Private Parnell studio &bull; NZD 200+</span>
+                <span>Private Parnell studio &bull; priced by size</span>
               </div>
-              <div class="bk-sess-dep">NZD 100<small>deposit</small></div>
             </label>
 
             <label class="bk-sess" data-session="Door-to-Door">
@@ -336,9 +407,8 @@ function injectBookingModal() {
               <div class="bk-dot"></div>
               <div class="bk-sess-info">
                 <strong>Door-to-Door</strong>
-                <span>Artist comes to you &bull; NZD 450+</span>
+                <span>Artist comes to you &bull; priced by size + travel</span>
               </div>
-              <div class="bk-sess-dep">NZD 150<small>deposit</small></div>
             </label>
 
             <label class="bk-sess" data-session="Custom Mega Project">
@@ -346,13 +416,61 @@ function injectBookingModal() {
               <div class="bk-dot"></div>
               <div class="bk-sess-info">
                 <strong>Custom Mega Project</strong>
-                <span>Full sleeves &amp; back pieces &bull; NZD 650+/session</span>
+                <span>Multi-session sleeves &amp; back combos &bull; NZD 650+/session</span>
               </div>
               <div class="bk-sess-dep">NZD 300<small>deposit</small></div>
             </label>
 
           </div>
           <div class="bk-error" id="bkSessionError">Please select a session type before continuing.</div>
+        </div>
+
+        <div id="bkSizeWrap" style="display:none;">
+          <label class="bk-lbl">Tattoo Size <span style="color:#e07070">*</span></label>
+          <div class="bk-sessions" id="bkSizes">
+
+            <label class="bk-sess" data-size="small">
+              <input type="radio" name="bkSize" value="small">
+              <div class="bk-dot"></div>
+              <div class="bk-sess-info">
+                <strong>Small</strong>
+                <span>Up to 3 hrs &bull; NZD 480–650</span>
+              </div>
+              <div class="bk-sess-dep">NZD 100<small>deposit</small></div>
+            </label>
+
+            <label class="bk-sess" data-size="medium">
+              <input type="radio" name="bkSize" value="medium">
+              <div class="bk-dot"></div>
+              <div class="bk-sess-info">
+                <strong>Medium</strong>
+                <span>4–5 hrs &bull; NZD 650–1,100</span>
+              </div>
+              <div class="bk-sess-dep">NZD 150<small>deposit</small></div>
+            </label>
+
+            <label class="bk-sess" data-size="large">
+              <input type="radio" name="bkSize" value="large">
+              <div class="bk-dot"></div>
+              <div class="bk-sess-info">
+                <strong>Large</strong>
+                <span>6–8 hrs &bull; NZD 1,000–1,700</span>
+              </div>
+              <div class="bk-sess-dep">NZD 200<small>deposit</small></div>
+            </label>
+
+            <label class="bk-sess" data-size="mega">
+              <input type="radio" name="bkSize" value="mega">
+              <div class="bk-dot"></div>
+              <div class="bk-sess-info">
+                <strong>Mega / Full Sleeve</strong>
+                <span>12+ hrs, single sitting &bull; NZD 2,000–2,800</span>
+              </div>
+              <div class="bk-sess-dep">NZD 300<small>deposit</small></div>
+            </label>
+
+          </div>
+          <div class="bk-error" id="bkSizeError">Please select a tattoo size before continuing.</div>
         </div>
 
         <div>
@@ -412,17 +530,33 @@ function openBookingModal(ctx) {
   if (ideaEl) ideaEl.value = BK_CTX.idea || '';
 
   /* Session type */
-  document.querySelectorAll('.bk-sess').forEach(function(label) {
+  document.querySelectorAll('#bkSessions .bk-sess').forEach(function(label) {
     var isMatch = BK_CTX.sessionType && label.dataset.session === BK_CTX.sessionType;
     label.classList.toggle('active', isMatch);
     var radio = label.querySelector('input');
     if (radio) radio.checked = isMatch;
   });
 
+  /* Tattoo size step — shown only for sessions priced by size.
+     If a specific tattoo/tier was passed in (e.g. from the gallery
+     or a homepage preview card), pre-select it; otherwise clear any
+     previous booking's selection so it doesn't silently carry over. */
+  var sessMeta = BK_CTX.sessionType ? SESSIONS[BK_CTX.sessionType] : null;
+  var sizeWrap = document.getElementById('bkSizeWrap');
+  if (sizeWrap) sizeWrap.style.display = (sessMeta && sessMeta.usesSize) ? '' : 'none';
+  document.querySelectorAll('#bkSizes .bk-sess').forEach(function(label) {
+    var isSizeMatch = BK_CTX.sizeTier && label.dataset.size === BK_CTX.sizeTier;
+    label.classList.toggle('active', isSizeMatch);
+    var radio = label.querySelector('input');
+    if (radio) radio.checked = isSizeMatch;
+  });
+  var sizeErrReset = document.getElementById('bkSizeError');
+  if (sizeErrReset) sizeErrReset.classList.remove('show');
+
   /* Payment tab */
   bkSetPayTab(BK_PAY);
 
-  /* Reset error */
+  /* Reset session error */
   var err = document.getElementById('bkSessionError');
   if (err) err.classList.remove('show');
 
@@ -459,19 +593,36 @@ function bkSetPayTab(type) {
 function bkUpdatePayNote() {
   var note = document.getElementById('bkPayNote');
   if (!note) return;
-  var active = document.querySelector('.bk-sess.active');
 
-  if (!active) {
+  var sessActive = document.querySelector('#bkSessions .bk-sess.active');
+  if (!sessActive) {
     note.innerHTML = 'Select a session type to see the deposit amount.';
     return;
   }
 
-  var s = SESSIONS[active.dataset.session];
+  var s = SESSIONS[sessActive.dataset.session];
   if (!s) return;
+
+  var deposit, priceLine;
+
+  if (s.usesSize) {
+    var sizeActive = document.querySelector('#bkSizes .bk-sess.active');
+    if (!sizeActive) {
+      note.innerHTML = 'Select a tattoo size to see the deposit amount.';
+      return;
+    }
+    var tier = SIZE_TIERS[sizeActive.dataset.size];
+    deposit   = tier.deposit;
+    priceLine = 'NZD ' + tier.priceMin + '–' + tier.priceMax +
+      (s.travelFee ? ' + travel (NZD ' + TRAVEL_FEE.min + '–' + TRAVEL_FEE.max + ')' : '');
+  } else {
+    deposit   = s.deposit;
+    priceLine = s.price;
+  }
 
   if (BK_PAY === 'deposit') {
     note.innerHTML =
-      '<strong>NZD ' + s.deposit + ' deposit</strong> secures your slot. ' +
+      '<strong>NZD ' + deposit + ' deposit</strong> secures your slot (' + priceLine + ' total). ' +
       'Deducted from your final price. Due within 48 hours of booking.';
   } else if (BK_PAY === 'full') {
     note.innerHTML =
@@ -482,52 +633,60 @@ function bkUpdatePayNote() {
   }
 }
 
-/* ── Build the WhatsApp message ───────────────────────────────── */
+/* ── Build the WhatsApp message — clear, labelled fields so the
+   studio can act on it in seconds without replying to ask for
+   missing details. ───────────────────────────────────────────── */
 function bkBuildMessage() {
-  var idea     = (document.getElementById('bkIdea').value  || '').trim();
-  var name     = (document.getElementById('bkName').value  || '').trim();
-  var date     = (document.getElementById('bkDate').value  || '').trim();
-  var active   = document.querySelector('.bk-sess.active');
-  var sessType = active ? active.dataset.session : '';
-  var s        = sessType ? SESSIONS[sessType] : null;
+  var idea       = (document.getElementById('bkIdea').value  || '').trim();
+  var name       = (document.getElementById('bkName').value  || '').trim();
+  var date       = (document.getElementById('bkDate').value  || '').trim();
+  var sessActive = document.querySelector('#bkSessions .bk-sess.active');
+  var sessType   = sessActive ? sessActive.dataset.session : '';
+  var s          = sessType ? SESSIONS[sessType] : null;
 
-  var lines = ['Kia ora ' + STUDIO.name + ' team,\n'];
+  var sizeActive = document.querySelector('#bkSizes .bk-sess.active');
+  var tier       = (s && s.usesSize && sizeActive) ? SIZE_TIERS[sizeActive.dataset.size] : null;
 
-  if (name) lines.push('Name: ' + name);
-  if (date) lines.push('Preferred time: ' + date);
+  var lines = ['Kia ora ' + STUDIO.name + ' team,', ''];
 
-  lines.push('');
+  lines.push('CLIENT: ' + (name || 'Not provided'));
+  lines.push('IDEA: ' + (idea || 'To be discussed'));
 
-  /* Tattoo idea */
-  if (idea) {
-    lines.push('Tattoo idea:\n' + idea);
-  } else {
-    lines.push('Tattoo idea:\nTo be discussed — please reach out so we can get started.');
-  }
+  if (BK_CTX.artist)    lines.push('PREFERRED ARTIST: ' + BK_CTX.artist);
+  if (BK_CTX.reference) lines.push('REFERENCE PIECE: ' + BK_CTX.reference);
 
-  /* Context extras (artist / reference tattoo) */
-  if (BK_CTX.artist)    lines.push('\nPreferred artist: ' + BK_CTX.artist);
-  if (BK_CTX.reference) lines.push('Reference piece: '   + BK_CTX.reference);
-
-  lines.push('');
-
-  /* Session + payment */
   if (s) {
-    lines.push('Session type: ' + sessType + ' — ' + s.blurb + ' (' + s.price + ')');
+    lines.push('SESSION: ' + sessType + ' — ' + s.blurb);
+
+    if (s.usesSize) {
+      lines.push('TIER: ' + (tier
+        ? (tier.label + ' (NZD ' + tier.priceMin + '–' + tier.priceMax + ', ' + tier.hours + ')')
+        : 'To be confirmed'));
+    } else {
+      lines.push('PACKAGE: ' + s.price);
+    }
+
+    if (s.travelFee) {
+      lines.push('TRAVEL FEE: NZD ' + TRAVEL_FEE.min + '–' + TRAVEL_FEE.max + ' (confirmed once location is known)');
+    }
+
+    var deposit = s.usesSize ? (tier ? tier.deposit : null) : s.deposit;
 
     if (BK_PAY === 'deposit') {
-      lines.push(
-        'Payment: Deposit — NZD ' + s.deposit +
-        ' to secure the appointment (deducted from final price)'
-      );
+      lines.push('DEPOSIT DUE: NZD ' + (deposit != null ? deposit : '(tier to be confirmed)'));
     } else if (BK_PAY === 'full') {
-      lines.push('Payment: Pay in full — please confirm the exact quote and send payment details.');
+      lines.push('PAYMENT: Pay in full — please send the exact quote and payment details.');
     } else {
-      lines.push('Payment: Enquiry only — I would like to discuss details before committing.');
+      lines.push('PAYMENT: Enquiry only — no payment yet, happy to discuss first.');
     }
   }
 
-  lines.push('\nPlease confirm availability and next steps.\n\nNgā mihi');
+  lines.push('PREFERRED TIME: ' + (date || 'Flexible'));
+  lines.push('');
+  lines.push('Please confirm availability and next steps.');
+  lines.push('');
+  lines.push('Ngā mihi');
+
   return lines.join('\n');
 }
 
@@ -545,16 +704,38 @@ function setupBookingModal() {
     });
   }
 
-  /* Session label clicks */
-  document.querySelectorAll('.bk-sess').forEach(function(label) {
+  /* Session type clicks — scoped to #bkSessions so they don't clash
+     with the tattoo-size options, which reuse the same .bk-sess style */
+  document.querySelectorAll('#bkSessions .bk-sess').forEach(function(label) {
     label.addEventListener('click', function() {
-      document.querySelectorAll('.bk-sess').forEach(function(l) { l.classList.remove('active'); });
+      document.querySelectorAll('#bkSessions .bk-sess').forEach(function(l) { l.classList.remove('active'); });
       label.classList.add('active');
       var r = label.querySelector('input');
       if (r) r.checked = true;
-      /* Clear session error */
+
       var err = document.getElementById('bkSessionError');
       if (err) err.classList.remove('show');
+
+      /* Show the size step only for sessions priced by tattoo size */
+      var meta = SESSIONS[label.dataset.session];
+      var sizeWrap = document.getElementById('bkSizeWrap');
+      if (sizeWrap) sizeWrap.style.display = (meta && meta.usesSize) ? '' : 'none';
+
+      bkUpdatePayNote();
+    });
+  });
+
+  /* Tattoo size clicks */
+  document.querySelectorAll('#bkSizes .bk-sess').forEach(function(label) {
+    label.addEventListener('click', function() {
+      document.querySelectorAll('#bkSizes .bk-sess').forEach(function(l) { l.classList.remove('active'); });
+      label.classList.add('active');
+      var r = label.querySelector('input');
+      if (r) r.checked = true;
+
+      var err = document.getElementById('bkSizeError');
+      if (err) err.classList.remove('show');
+
       bkUpdatePayNote();
     });
   });
@@ -571,8 +752,8 @@ function setupBookingModal() {
       e.preventDefault();
 
       /* Validate session type */
-      var active = document.querySelector('.bk-sess.active');
-      if (!active) {
+      var sessActive = document.querySelector('#bkSessions .bk-sess.active');
+      if (!sessActive) {
         var err = document.getElementById('bkSessionError');
         if (err) {
           err.classList.add('show');
@@ -581,9 +762,24 @@ function setupBookingModal() {
         return;
       }
 
+      /* Validate tattoo size, only when this session type requires it */
+      var meta = SESSIONS[sessActive.dataset.session];
+      if (meta && meta.usesSize) {
+        var sizeActive = document.querySelector('#bkSizes .bk-sess.active');
+        if (!sizeActive) {
+          var sizeErr = document.getElementById('bkSizeError');
+          if (sizeErr) {
+            sizeErr.classList.add('show');
+            sizeErr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          return;
+        }
+      }
+
       var msg = bkBuildMessage();
       window.open(buildWaUrl(msg), '_blank');
       closeBookingModal();
+      showToast('Opening WhatsApp — send the message to confirm your booking.');
     });
   }
 }
@@ -671,7 +867,10 @@ document.addEventListener('DOMContentLoaded', function () {
         '<div class="modal-detail-row"><span class="modal-detail-label">Rate</span><span class="modal-detail-value">' + a.rate + '</span></div>';
     }
 
-    /* "Book This Artist" now opens the booking modal */
+    /* "Book This Artist" opens the SAME universal booking modal —
+       no separate flow. The customer still picks Session Type then
+       Tattoo Size themselves, exactly like any other booking; the
+       only difference is the artist's name travels with the request. */
     if (modalBookBtn) {
       modalBookBtn.onclick = function(e) {
         e.preventDefault();
@@ -717,18 +916,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── Gallery filter ───────────────────────────────────────────── */
-  var filterBtns  = document.querySelectorAll('.filter-btn');
-  var tattooCards = document.querySelectorAll('.tattoo-card');
+  /* ── Gallery filters — Style and Size/Budget are independent
+     filter groups; a card must match BOTH active filters to show.
+     (Harmless no-op on pages without these elements.) ──────────── */
+  var styleFilterBtns = document.querySelectorAll('#styleFilters .filter-btn');
+  var tierFilterBtns  = document.querySelectorAll('#tierFilters .filter-btn');
+  var tattooCards     = document.querySelectorAll('.tattoo-card');
 
-  filterBtns.forEach(function(btn) {
+  var activeStyleFilter = 'all';
+  var activeTierFilter  = 'all';
+
+  function applyGalleryFilters() {
+    tattooCards.forEach(function(card) {
+      var styleMatch = (activeStyleFilter === 'all' || card.dataset.category === activeStyleFilter);
+      var tierMatch  = (activeTierFilter  === 'all' || card.dataset.tier === activeTierFilter);
+      card.style.display = (styleMatch && tierMatch) ? '' : 'none';
+    });
+  }
+
+  styleFilterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
-      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      styleFilterBtns.forEach(function(b) { b.classList.remove('active'); });
       btn.classList.add('active');
-      var f = btn.dataset.filter;
-      tattooCards.forEach(function(card) {
-        card.style.display = (f === 'all' || card.dataset.category === f) ? '' : 'none';
-      });
+      activeStyleFilter = btn.dataset.filter;
+      applyGalleryFilters();
+    });
+  });
+
+  tierFilterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tierFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTierFilter = btn.dataset.tierFilter;
+      applyGalleryFilters();
     });
   });
 
@@ -736,7 +956,8 @@ document.addEventListener('DOMContentLoaded', function () {
      BOOKING TRIGGERS — all routes go through openBookingModal()
      ================================================================ */
 
-  /* Gallery cards — "Pay Deposit" */
+  /* Gallery cards + homepage preview cards — "Pay Deposit" /
+     "Book Similar" (both use data-wa-deposit, keyed into TATTOOS) */
   document.querySelectorAll('[data-wa-deposit]').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
@@ -746,6 +967,7 @@ document.addEventListener('DOMContentLoaded', function () {
         label:     t.name,
         idea:      t.name + '\nStyle: ' + t.style + '\nPlacement: ' + t.placement + '\nEstimated: ' + t.hours,
         reference: t.name + ' — ' + t.style + ', ' + t.placement + ', est. NZD ' + t.priceMin + '–' + t.priceMax,
+        sizeTier:  t.tier,
         payment:   'deposit',
       });
     });
@@ -761,6 +983,7 @@ document.addEventListener('DOMContentLoaded', function () {
         label:     t.name,
         idea:      t.name + '\nStyle: ' + t.style + '\nPlacement: ' + t.placement + '\nEstimated: ' + t.hours,
         reference: t.name + ' — ' + t.style + ', ' + t.placement + ', est. NZD ' + t.priceMin + '–' + t.priceMax,
+        sizeTier:  t.tier,
         payment:   'full',
       });
     });
@@ -780,14 +1003,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* "Book Similar" links in gallery preview cards (index.html) */
-  document.querySelectorAll('.book-now-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      openBookingModal({ label: 'Book a Tattoo Session' });
-    });
-  });
-
   /* General enquiry buttons */
   document.querySelectorAll('[data-wa-general]').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
@@ -798,16 +1013,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
-  /* ── Toast ───────────────────────────────────────────────────── */
-  var toast = document.getElementById('toastNotification') || document.getElementById('toast');
-
-  function showToast(msg, duration) {
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(function() { toast.classList.remove('show'); }, duration || 4000);
-  }
 
   /* ── Contact form (Formspree) ─────────────────────────────────── */
   var contactForm = document.getElementById('contactForm');
@@ -850,17 +1055,21 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeChatbot() { if (chatWindow) chatWindow.classList.remove('open'); }
 
   if (chatTrigger && chatWindow) {
+    /* Each reply is { text, action }. action:'book' renders a button
+       that closes the chat and opens the real booking modal — the
+       chatbot hands off into an actual booking instead of just
+       describing how to do it in prose. */
     var BOT = {
-      greeting: 'Kia ora! Welcome to ' + STUDIO.name + ' in ' + STUDIO.suburb + '.\n\nI can help with pricing, bookings, our artists, or anything else. What would you like to know?',
-      pricing:  'Our pricing guide:\n\nSmall (1–2 hrs): NZD 200–350\nMedium (3–4 hrs): NZD 450–700\nLarge (5–8 hrs): NZD 800–1,700\nFull sleeves / mega pieces: NZD 2,000–4,500+\n\nAll sessions require a non-refundable deposit of NZD 100–300, deducted from the final price.',
-      booking:  'To book from anywhere on the site:\n\n1. Click any "Book" button\n2. A booking form opens — fill in your idea and details\n3. Tap "Send via WhatsApp"\n4. We confirm once your deposit is received.\n\nYou can choose Deposit, Pay in Full, or Just Enquire.',
-      deposit:  'Deposits range from NZD 100–300 depending on session type:\n\nStudio Session: NZD 100\nDoor-to-Door: NZD 150\nMega Project: NZD 300\n\nAll deposits are non-refundable and come off your final price. 48 hours notice required to reschedule.',
-      artists:  'Our six resident artists:\n\nJames Tūhoe — Tā Moko and Polynesian\nAroha Ngāti — Portraiture and Realism\nKenji Murakami — Japanese Traditional\nLily Ashford — Fine Line and Minimalist\nDiego Reyes — Black and Grey and Script\nSophie Jamieson — Colour Realism and Floral',
-      hours:    'Studio hours:\n\nMonday to Saturday: 8:00 am to 8:00 pm\nSunday: 9:00 am to 2:00 pm\n\nAppointments preferred. Walk-ins welcome when availability allows.',
-      location: 'InkXas is a private studio in ' + STUDIO.suburb + ', New Zealand.\n\nWe also offer door-to-door service across Auckland.',
-      gallery:  'Our gallery has 24 original custom tattoos. Every piece shows an estimated price, and you can book directly from each tattoo card.',
-      maori:    'Tā moko and Kirituhi are offered by James Tūhoe, who specialises in culturally grounded Māori and Polynesian tattoo design.',
-      fallback: 'Thanks for your question. For personalised help, tap any "Book" button on the site or message us directly via WhatsApp.',
+      greeting: { text: 'Kia ora! Welcome to ' + STUDIO.name + ' in ' + STUDIO.suburb + '.\n\nI can help with pricing, bookings, our artists, or anything else. What would you like to know?', action: null },
+      pricing:  { text: 'Our pricing is based on tattoo size:\n\nSmall (up to 3 hrs): NZD 480–650\nMedium (4–5 hrs): NZD 650–1,100\nLarge (6–8 hrs): NZD 1,000–1,700\nMega / full sleeve (12+ hrs): NZD 2,000–2,800\n\nDeposits range from NZD 100–300 depending on size, and are deducted from your final price.', action: 'book' },
+      booking:  { text: 'To book:\n\n1. Tap the button below (or any Book button on the site)\n2. Choose your session type, then your tattoo size\n3. Submit — WhatsApp opens with your details pre-filled\n4. We confirm once your deposit is received.', action: 'book' },
+      deposit:  { text: 'Deposits are based on tattoo size:\n\nSmall: NZD 100\nMedium: NZD 150\nLarge: NZD 200\nMega / full sleeve: NZD 300\n\nAll deposits are non-refundable and come off your final price. 48 hours notice is required to reschedule.', action: 'book' },
+      artists:  { text: 'Our six resident artists:\n\nJames Tūhoe — Tā Moko and Polynesian\nAroha Ngāti — Portraiture and Realism\nKenji Murakami — Japanese Traditional\nLily Ashford — Fine Line and Minimalist\nDiego Reyes — Black and Grey and Script\nSophie Jamieson — Colour Realism and Floral', action: null },
+      hours:    { text: 'Studio hours:\n\nMonday to Saturday: 8:00 am to 8:00 pm\nSunday: 9:00 am to 2:00 pm\n\nAppointments preferred. Walk-ins welcome when availability allows.', action: null },
+      location: { text: 'InkXas is a private studio in ' + STUDIO.suburb + ', New Zealand.\n\nWe also offer door-to-door service across Auckland.', action: null },
+      gallery:  { text: 'Our gallery has 24 original custom tattoos, each tagged by size and price. You can filter by style or by budget and book directly from any piece.', action: null },
+      maori:    { text: 'Tā moko and Kirituhi are offered by James Tūhoe, who specialises in culturally grounded Māori and Polynesian tattoo design.', action: null },
+      fallback: { text: 'Thanks for your question. Tap the button below to open the booking form, or message us directly via WhatsApp.', action: 'book' },
     };
 
     function getBotReply(input) {
@@ -886,17 +1095,42 @@ document.addEventListener('DOMContentLoaded', function () {
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
     }
 
+    function appendBotReply(reply) {
+      if (!chatMsgs) return;
+      var div = document.createElement('div');
+      div.className = 'chat-msg bot';
+
+      var textEl = document.createElement('div');
+      textEl.textContent = reply.text;
+      div.appendChild(textEl);
+
+      if (reply.action === 'book') {
+        var actionBtn = document.createElement('button');
+        actionBtn.type = 'button';
+        actionBtn.className = 'chat-action-btn';
+        actionBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Open Booking Form';
+        actionBtn.addEventListener('click', function() {
+          closeChatbot();
+          openBookingModal({ label: 'Booking Enquiry' });
+        });
+        div.appendChild(actionBtn);
+      }
+
+      chatMsgs.appendChild(div);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }
+
     function sendMsg(text) {
       if (!text || !text.trim()) return;
       appendMsg(text, 'user');
       if (chatInputEl) chatInputEl.value = '';
-      setTimeout(function() { appendMsg(getBotReply(text), 'bot'); }, 560);
+      setTimeout(function() { appendBotReply(getBotReply(text)); }, 560);
     }
 
     chatTrigger.addEventListener('click', function() {
       chatWindow.classList.toggle('open');
       if (chatWindow.classList.contains('open') && chatMsgs && chatMsgs.children.length === 0) {
-        setTimeout(function() { appendMsg(BOT.greeting, 'bot'); }, 300);
+        setTimeout(function() { appendBotReply(BOT.greeting); }, 300);
       }
     });
     if (chatCloseBtn) chatCloseBtn.addEventListener('click', closeChatbot);
@@ -920,7 +1154,8 @@ document.addEventListener('DOMContentLoaded', function () {
 }); /* end DOMContentLoaded */
 
 /* ================================================================
-   VIDEO AUTOPLAY
+   VIDEO AUTOPLAY  (unchanged — already working correctly: only the
+   video actually in view plays, one at a time on mobile)
    Desktop  → hover on card to play
    Mobile   → observe video CONTAINER (not full card) at ≥50%
               This ensures gallery cards (which are tall) play as
@@ -928,7 +1163,6 @@ document.addEventListener('DOMContentLoaded', function () {
               the entire card (including text/buttons) is 70% visible.
    ================================================================ */
 
-      
    (function initVideoAutoplay() {
 
   var canHover = window.matchMedia('(hover: hover)').matches;
