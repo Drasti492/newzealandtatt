@@ -26,9 +26,10 @@ function showToast(msg, duration) {
 
 /* ── Tattoo size tiers — SINGLE SOURCE OF TRUTH for pricing ──────
    Every page (index.html, book.html, gallery.html) and the booking
-   modal below reads its numbers from here or from real, researched
-   Auckland market rates. Change a price ONCE, here, and update the
-   matching price guide table on book.html to stay in sync. */
+   modal below reads its numbers from here. Nothing else in the site
+   should ever hardcode a price or deposit — change a number ONCE,
+   here, and it updates the gallery, the pricing table, the session
+   cards, and the modal automatically. */
 const SIZE_TIERS = {
   small: {
     label:    'Small',
@@ -58,6 +59,15 @@ const SIZE_TIERS = {
     priceMax: 2800,
     deposit:  300,
   },
+};
+
+/* Descriptive example text per tier for the pricing guide table.
+   Not a number that can conflict — purely illustrative copy. */
+const TIER_EXAMPLES = {
+  small:  'Ankle flower, small symbol, script text, geometric',
+  medium: 'Butterfly, portrait accent, calf piece, shoulder piece',
+  large:  'Lion arm, wolf thigh, full floral back, half sleeve',
+  mega:   'Full sleeve, full back piece, chest to sleeve',
 };
 
 /* Door-to-Door travel fee — added on top of the size-tier price,
@@ -155,13 +165,11 @@ function resolvePhoto(path) {
 
 /* ── Tattoo data ───────────────────────────────────────────────────
    Every piece carries a `tier` key pointing at SIZE_TIERS. Deposit
-   is ALWAYS looked up from the tier at booking time — never stored
-   per-piece — so a price change to SIZE_TIERS updates every one of
-   these automatically without editing this list.
+   AND price are ALWAYS looked up from the tier at render/booking
+   time — never written into the HTML — so a change to SIZE_TIERS
+   updates every one of these automatically everywhere on the site.
    The first 24 entries are the full gallery (gallery.html); the
-   final 6 are the homepage preview videos (index.html), added here
-   so their "Book Similar" buttons carry real size/price context
-   instead of opening a blank enquiry. ───────────────────────────── */
+   final 6 are the homepage preview videos (index.html). ─────────── */
 const TATTOOS = {
   'angry-bird':       { name: 'Angry Birds Sleeve',         style: 'Colour cartoon realism',      placement: 'Forearm',              hours: 'approx 5 hours',  priceMin: 850,  priceMax: 1100, tier: 'medium' },
   'back-flower':      { name: 'Large Back Floral',          style: 'Colour realism',              placement: 'Full upper back',      hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
@@ -196,6 +204,114 @@ const TATTOOS = {
   'vulture-hand':          { name: 'Vulture Hand Tattoo',        style: 'Dark realism',                placement: 'Hand and fingers',     hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
   'butterfly-hip':         { name: 'Rose and Butterfly Hip',     style: 'Colour realism',              placement: 'Hip and thigh area',   hours: 'approx 8 hours',  priceMin: 1350, priceMax: 1700, tier: 'large' },
 };
+
+/* ── Currency formatting helper ───────────────────────────────── */
+function fmtNzd(n) {
+  return n.toLocaleString('en-NZ');
+}
+
+/* ================================================================
+   DYNAMIC PRICE / DEPOSIT RENDERING
+   These four functions are the actual fix for the gallery/booking
+   pricing conflict: nothing below reads a number from HTML — every
+   number is looked up from SIZE_TIERS / TATTOOS / SESSIONS above,
+   so the gallery, the pricing guide, the session cards, and the
+   booking modal can never disagree again.
+   ================================================================ */
+
+/* Fills any element with data-price-for="<tattoo-key>" with that
+   piece's live price range. Used on gallery.html cards and the
+   homepage gallery-preview cards. Safe no-op on pages with none. */
+function fillTattooPrices() {
+  document.querySelectorAll('[data-price-for]').forEach(function(el) {
+    var t = TATTOOS[el.dataset.priceFor];
+    if (!t) return;
+    el.textContent = 'NZD ' + fmtNzd(t.priceMin) + ' – ' + fmtNzd(t.priceMax);
+  });
+}
+
+/* Populates book.html's "Typical Pricing by Tattoo Size" table body
+   straight from SIZE_TIERS. Safe no-op if #sizeTierTableBody isn't
+   on the page. */
+function fillSizeTierTable() {
+  var tbody = document.getElementById('sizeTierTableBody');
+  if (!tbody) return;
+
+  var rows = '';
+  ['small', 'medium', 'large', 'mega'].forEach(function(key) {
+    var t = SIZE_TIERS[key];
+    rows += '<tr>' +
+      '<td>' + t.label + '</td>' +
+      '<td>' + t.hours + '</td>' +
+      '<td class="price-cell">NZD ' + fmtNzd(t.priceMin) + ' – ' + fmtNzd(t.priceMax) + '</td>' +
+      '<td class="deposit-cell">NZD ' + t.deposit + '</td>' +
+      '<td>' + TIER_EXAMPLES[key] + '</td>' +
+      '</tr>';
+  });
+  rows += '<tr>' +
+    '<td>Door-to-Door Add-on</td>' +
+    '<td>Travel time</td>' +
+    '<td class="price-cell">NZD ' + fmtNzd(TRAVEL_FEE.min) + ' – ' + fmtNzd(TRAVEL_FEE.max) + '</td>' +
+    '<td class="deposit-cell">Included in deposit</td>' +
+    '<td>Added on top of tattoo price for home visits</td>' +
+    '</tr>';
+
+  tbody.innerHTML = rows;
+}
+
+/* Fills the Studio / Door-to-Door / Mega price and deposit figures
+   wherever they appear — book.html's session cards AND index.html's
+   homepage rate cards both use these same element IDs, so one
+   function keeps both pages honest. Since Studio and Door-to-Door
+   price by tattoo size, their headline figure is "from" the small
+   tier; Mega is genuinely flat-priced and comes straight from
+   SESSIONS. */
+function fillSessionCards() {
+  var small = SIZE_TIERS.small;
+
+  var studioPrice = document.getElementById('studioPriceFrom');
+  if (studioPrice) studioPrice.textContent = fmtNzd(small.priceMin);
+
+  var studioDeposit = document.getElementById('studioDepositAmt');
+  if (studioDeposit) studioDeposit.textContent = small.deposit;
+
+  var doorPrice = document.getElementById('doorPriceFrom');
+  if (doorPrice) doorPrice.textContent = fmtNzd(small.priceMin + TRAVEL_FEE.min);
+
+  var doorDeposit = document.getElementById('doorDepositAmt');
+  if (doorDeposit) doorDeposit.textContent = small.deposit;
+
+  var mega = SESSIONS['Custom Mega Project'];
+
+  var megaPrice = document.getElementById('megaPriceAmt');
+  if (megaPrice) megaPrice.textContent = mega.price.replace('NZD ', '').replace(' per session', '');
+
+  var megaDeposit = document.getElementById('megaDepositAmt');
+  if (megaDeposit) megaDeposit.textContent = mega.deposit;
+}
+
+/* If a "Book Similar" link on the gallery or homepage sent the
+   customer here as book.html?piece=<key>, reopen the exact same
+   booking modal pre-filled with that piece's idea, reference, and
+   size tier — so the piece they liked isn't lost just because they
+   navigated to a new page. Session type (Studio vs Door-to-Door) is
+   still their choice, since that's about location, not the design. */
+function prefillFromPieceParam() {
+  var params = new URLSearchParams(window.location.search);
+  var pieceKey = params.get('piece');
+  if (!pieceKey) return;
+
+  var t = TATTOOS[pieceKey];
+  if (!t) return;
+
+  openBookingModal({
+    label:     t.name,
+    idea:      t.name + '\nStyle: ' + t.style + '\nPlacement: ' + t.placement + '\nEstimated: ' + t.hours,
+    reference: t.name + ' — ' + t.style + ', ' + t.placement + ', est. NZD ' + fmtNzd(t.priceMin) + '–' + fmtNzd(t.priceMax),
+    sizeTier:  t.tier,
+    payment:   'deposit',
+  });
+}
 
 /* ================================================================
    UNIVERSAL BOOKING MODAL
@@ -553,6 +669,14 @@ function openBookingModal(ctx) {
   var sizeErrReset = document.getElementById('bkSizeError');
   if (sizeErrReset) sizeErrReset.classList.remove('show');
 
+  /* If a piece was passed in without a session type yet (gallery/
+     homepage "Book Similar" handoff), show the size step immediately
+     since we already know the size tier even before they pick
+     Studio vs Door-to-Door. */
+  if (!sessMeta && BK_CTX.sizeTier && sizeWrap) {
+    sizeWrap.style.display = '';
+  }
+
   /* Payment tab */
   bkSetPayTab(BK_PAY);
 
@@ -613,7 +737,7 @@ function bkUpdatePayNote() {
     }
     var tier = SIZE_TIERS[sizeActive.dataset.size];
     deposit   = tier.deposit;
-    priceLine = 'NZD ' + tier.priceMin + '–' + tier.priceMax +
+    priceLine = 'NZD ' + fmtNzd(tier.priceMin) + '–' + fmtNzd(tier.priceMax) +
       (s.travelFee ? ' + travel (NZD ' + TRAVEL_FEE.min + '–' + TRAVEL_FEE.max + ')' : '');
   } else {
     deposit   = s.deposit;
@@ -660,7 +784,7 @@ function bkBuildMessage() {
 
     if (s.usesSize) {
       lines.push('TIER: ' + (tier
-        ? (tier.label + ' (NZD ' + tier.priceMin + '–' + tier.priceMax + ', ' + tier.hours + ')')
+        ? (tier.label + ' (NZD ' + fmtNzd(tier.priceMin) + '–' + fmtNzd(tier.priceMax) + ', ' + tier.hours + ')')
         : 'To be confirmed'));
     } else {
       lines.push('PACKAGE: ' + s.price);
@@ -678,6 +802,14 @@ function bkBuildMessage() {
       lines.push('PAYMENT: Pay in full — please send the exact quote and payment details.');
     } else {
       lines.push('PAYMENT: Enquiry only — no payment yet, happy to discuss first.');
+    }
+  } else if (BK_CTX.sizeTier) {
+    /* Piece was passed in via ?piece= but no session type chosen yet
+       at message-build time — still surface the size so nothing is
+       lost if they submit before picking Studio vs Door-to-Door. */
+    var fallbackTier = SIZE_TIERS[BK_CTX.sizeTier];
+    if (fallbackTier) {
+      lines.push('TIER: ' + fallbackTier.label + ' (NZD ' + fmtNzd(fallbackTier.priceMin) + '–' + fmtNzd(fallbackTier.priceMax) + ', ' + fallbackTier.hours + ')');
     }
   }
 
@@ -792,6 +924,16 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ── Inject and wire the universal booking modal first ────────── */
   injectBookingModal();
   setupBookingModal();
+
+  /* ── Dynamic pricing fills — single source of truth (SIZE_TIERS /
+     TATTOOS / SESSIONS above) so the gallery, the pricing table, and
+     the session cards can never drift out of sync with the modal
+     again. Each function is a safe no-op on pages without its
+     matching elements. ─────────────────────────────────────────── */
+  fillTattooPrices();
+  fillSizeTierTable();
+  fillSessionCards();
+  prefillFromPieceParam();
 
   /* ── WhatsApp contact link ────────────────────────────────────── */
   var contactWaLink = document.getElementById('contactWaLink');
@@ -917,8 +1059,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ── Gallery filters — Style and Size/Budget are independent
-     filter groups; a card must match BOTH active filters to show.
-     (Harmless no-op on pages without these elements.) ──────────── */
+     filter groups; a card must match BOTH active filters to show. ─ */
   var styleFilterBtns = document.querySelectorAll('#styleFilters .filter-btn');
   var tierFilterBtns  = document.querySelectorAll('#tierFilters .filter-btn');
   var tattooCards     = document.querySelectorAll('.tattoo-card');
@@ -955,39 +1096,6 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ================================================================
      BOOKING TRIGGERS — all routes go through openBookingModal()
      ================================================================ */
-
-  /* Gallery cards + homepage preview cards — "Pay Deposit" /
-     "Book Similar" (both use data-wa-deposit, keyed into TATTOOS) */
-  document.querySelectorAll('[data-wa-deposit]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var t = TATTOOS[btn.dataset.waDeposit];
-      if (!t) return;
-      openBookingModal({
-        label:     t.name,
-        idea:      t.name + '\nStyle: ' + t.style + '\nPlacement: ' + t.placement + '\nEstimated: ' + t.hours,
-        reference: t.name + ' — ' + t.style + ', ' + t.placement + ', est. NZD ' + t.priceMin + '–' + t.priceMax,
-        sizeTier:  t.tier,
-        payment:   'deposit',
-      });
-    });
-  });
-
-  /* Gallery cards — "Pay in Full" */
-  document.querySelectorAll('[data-wa-full]').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var t = TATTOOS[btn.dataset.waFull];
-      if (!t) return;
-      openBookingModal({
-        label:     t.name,
-        idea:      t.name + '\nStyle: ' + t.style + '\nPlacement: ' + t.placement + '\nEstimated: ' + t.hours,
-        reference: t.name + ' — ' + t.style + ', ' + t.placement + ', est. NZD ' + t.priceMin + '–' + t.priceMax,
-        sizeTier:  t.tier,
-        payment:   'full',
-      });
-    });
-  });
 
   /* Rate cards / session cards — "Book Now" / "Pay Deposit" / "Enquire" */
   document.querySelectorAll('[data-wa-session]').forEach(function(btn) {
@@ -1067,8 +1175,9 @@ document.addEventListener('DOMContentLoaded', function () {
       artists:  { text: 'Our six resident artists:\n\nJames Tūhoe — Tā Moko and Polynesian\nAroha Ngāti — Portraiture and Realism\nKenji Murakami — Japanese Traditional\nLily Ashford — Fine Line and Minimalist\nDiego Reyes — Black and Grey and Script\nSophie Jamieson — Colour Realism and Floral', action: null },
       hours:    { text: 'Studio hours:\n\nMonday to Saturday: 8:00 am to 8:00 pm\nSunday: 9:00 am to 2:00 pm\n\nAppointments preferred. Walk-ins welcome when availability allows.', action: null },
       location: { text: 'InkXas is a private studio in ' + STUDIO.suburb + ', New Zealand.\n\nWe also offer door-to-door service across Auckland.', action: null },
-      gallery:  { text: 'Our gallery has 24 original custom tattoos, each tagged by size and price. You can filter by style or by budget and book directly from any piece.', action: null },
+      gallery:  { text: 'Our gallery has 24 original custom tattoos, each tagged by style and by size/budget so you can filter to what fits, and book directly from any piece.', action: null },
       maori:    { text: 'Tā moko and Kirituhi are offered by James Tūhoe, who specialises in culturally grounded Māori and Polynesian tattoo design.', action: null },
+      faq:      { text: 'Cancellations, aftercare, our age policy, and other common questions are all covered on our FAQ & Aftercare page.', action: null },
       fallback: { text: 'Thanks for your question. Tap the button below to open the booking form, or message us directly via WhatsApp.', action: 'book' },
     };
 
@@ -1083,6 +1192,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (/where|location|address|parnell|auckland|studio|door|travel/.test(t))  return BOT.location;
       if (/gallery|example|work|photo|video|style|design|see|show/.test(t))      return BOT.gallery;
       if (/m.ori|moko|polynesian|cultural|kirituhi/.test(t))                     return BOT.maori;
+      if (/faq|aftercare|heal|cancel|reschedule|age|hurt|pain|18/.test(t))       return BOT.faq;
       return BOT.fallback;
     }
 
