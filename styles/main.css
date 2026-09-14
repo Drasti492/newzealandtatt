@@ -544,6 +544,10 @@ input, textarea, select { font-family: var(--font-b); }
 .tattoo-deposit-note strong { color: var(--text); }
 .tattoo-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 12px; }
 .tattoo-actions .btn { font-size: 11px; padding: 10px 8px; }
+/* Single-CTA variant — used now that each card links straight to
+   book.html instead of offering two payment buttons inline. */
+.tattoo-actions.single-action { grid-template-columns: 1fr; }
+.tattoo-actions.single-action .book-btn { font-size: 12px; padding: 12px; }
 
 /* ── Pro card (homepage gallery preview) ──────────────────────── */
 .pro-card {
@@ -579,6 +583,7 @@ input, textarea, select { font-family: var(--font-b); }
 }
 .pro-card figcaption strong { font-family: var(--font-d); font-size: 16px; color: var(--white); }
 .pro-card figcaption .muted { font-size: 12px; }
+.pro-card figcaption .price-line { color: var(--gold); font-weight: 600; }
 .card-actions { padding: 12px 16px 16px; }
 .center-actions { display: flex; justify-content: center; }
 .book-now-btn {
@@ -927,7 +932,7 @@ input, textarea, select { font-family: var(--font-b); }
 .footer-col a   { display: block; font-size: 13px; color: var(--muted-light); padding: 5px 0; transition: color var(--t); }
 .footer-col a:hover { color: var(--white); }
 .footer-inner   { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-.footer-links   { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links   { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
 .footer-links a { font-size: 13px; color: var(--muted-light); transition: color var(--t); }
 .footer-links a:hover { color: var(--gold); }
 .footer-bottom {
